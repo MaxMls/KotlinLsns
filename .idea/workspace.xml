@@ -1,105 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="99969646-f569-4f0f-bfde-ba8576ae7265" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpclient_4_5_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpclient_4_5_101.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_jetbrains_kotlinx_kotlinx_coroutines_core_0_27_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KotlinLsns.iml" beforeDir="false" afterPath="$PROJECT_DIR$/KotlinLsns.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/ArraysKt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$failedConcurrentSum$2$one$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$failedConcurrentSum$2$two$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$failedConcurrentSum$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$failedConcurrentSum2$2$one$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$failedConcurrentSum2$2$two$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$failedConcurrentSum2$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$main$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$main$job$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$main$sequence$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$main$sequence$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$simpleThread$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt$workload$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/AsynkKt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Complex.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/DayTime$DAY.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/DayTime$NIGHT.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/DayTime.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Employee.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI1$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI10$Bridge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI10$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI10$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI10$start$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI3$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI3$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI3$start$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI3$start$3$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI3$start$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI4$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI5$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI5$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI6$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI7$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI9$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI9$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI9$start$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/GUI9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$menubar$1$menu$1$selectMenuItem$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$menubar$1$menu$1$selectMenuItem$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$menubar$1$menu$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$menubar$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$vbox$1$hbox$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$vbox$1$hbox$1$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$vbox$1$hbox$1$stopButton$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$vbox$1$hbox$1$stopButton$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$vbox$1$hbox$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1$vbox$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer$start$root$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/MPlayer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/PhoneBook.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/StackedAreaChartExample$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/StackedAreaChartExample$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/GUISamples/StackedAreaChartExample.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Human$DefaultImpls.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Human.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Human2$DefaultImpls.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Human2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/InumKt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/LogType$INFO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/LogType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Logger$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Logger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/META-INF/KotlinLsns.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/MainexamlpesKt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/MainktKt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Mammalia.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Person.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Printable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/Prntable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/controller/MainController$initialize$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/controller/MainController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/helloworld/HelloWorld$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/helloworld/HelloWorld$start$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/helloworld/HelloWorld.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KotlinLsns/resources/main.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUISamples/CoinTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUISamples/CoinTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUISamples/GUI10.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUISamples/GUI10.kt" afterDir="false" />
-    </list>
+    <list default="true" id="99969646-f569-4f0f-bfde-ba8576ae7265" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -259,7 +161,7 @@
       <updated>1568516608135</updated>
       <workItem from="1579598080143" duration="1428000" />
       <workItem from="1579599525324" duration="4655000" />
-      <workItem from="1579604208907" duration="3007000" />
+      <workItem from="1579604208907" duration="3435000" />
     </task>
     <servers />
   </component>
