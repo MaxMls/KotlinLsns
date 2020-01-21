@@ -6,6 +6,8 @@ import javafx.application.Application
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.collections.FXCollections
 import javafx.event.Event
+import javafx.event.EventHandler
+import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.chart.CategoryAxis
 import javafx.scene.chart.NumberAxis
@@ -19,13 +21,24 @@ import javafx.scene.input.MouseEvent
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.stage.Stage
+import javafx.util.StringConverter
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
 
 class Kripta : Application() {
     data class Item(
         val crypto: Crypto,
         val color: ColorPicker,
-        var isActive: Boolean,
+        var isActive: Boolean = true,
         var select: Boolean = false
     ) {
         val name: String get() = crypto.name
@@ -37,10 +50,35 @@ class Kripta : Application() {
     private var cryptoListNoUs: MutableList<Crypto>
     private var cryptoListUs = mutableListOf<Crypto>()
 
+    private val delBt = Button("Удалить")
+    private val refrbt = Button("Обновить график")
+    private val bt = Button("Добавить")
+    private val tableView = TableView<Item>()
+    val datePickerStart = DateTimePicker()
+    val datePickerEnd = DateTimePicker()
+    val period = ChoiceBox(FXCollections.observableArrayList(GetCoin.EIntervalType.values().toList()))
+
     init {
         for (f in Color::class.java.fields) colorList.add(f.get(null) as Color)
         cryptoListNoUs = getCoin.coinNames().toMutableList()
 
+        period.value = GetCoin.EIntervalType.DAY
+
+
+        period.converter = object : StringConverter<GetCoin.EIntervalType>() {
+
+            override fun toString(o: GetCoin.EIntervalType): String {
+                return o.desc
+            }
+
+
+            override fun fromString(string: String): GetCoin.EIntervalType {
+                return period.items.filter {
+                    it.desc == string
+                }[0]
+            }
+
+        }
     }
 
     private fun nextColor(): ColorPicker {
@@ -60,21 +98,22 @@ class Kripta : Application() {
     private fun returnCrypto(cp: Crypto) {
         cryptoListNoUs.add(0, cp)
         cryptoListNoUs.sortBy { it.rank }
-        cryptoListUs.remove(cp)
+        try {
+            cryptoListUs.remove(cp)
+        } catch (e: Exception) {
+        }
     }
 
 
     override fun start(stage: Stage) {
         val graphBox = VBox()
 
-        graphBox.children.add(updateChart())
 
         val root = VBox()
 
         root.children.add(graphBox)
 
 
-        val tableView = TableView<Item>()
         tableView.isEditable = true
         root.children.add(tableView)
 
@@ -119,13 +158,20 @@ class Kripta : Application() {
                 cell
             }
             tableView.columns.add(booleanColumn)
+
+
+        }
+
+        delBt.isDisable = true
+        tableView.selectionModel.selectedItemProperty().addListener { observable, oldValue, newValue ->
+            delBt.isDisable = cryptoListUs.count() == 0 || newValue == null
         }
 
 
         // Добавить тестовую валюту
         run {
             val cp = nextColor()
-            tableView.items.add(Item(getCrypto(cryptoListNoUs[0]), nextColor(), false))
+            tableView.items.add(Item(getCrypto(cryptoListNoUs[0]), nextColor(), true))
             cp.setOnAction {
                 println(it)
             }
@@ -133,7 +179,6 @@ class Kripta : Application() {
 
         // Кнопка добавить
         run {
-            val bt = Button("Добавить")
             bt.setOnAction {
                 val dialog: ChoiceDialog<Crypto> = ChoiceDialog(cryptoListNoUs[0], cryptoListNoUs)
 
@@ -144,34 +189,49 @@ class Kripta : Application() {
 
                 result.ifPresent { crypto ->
                     val cp = nextColor()
-                    cp.setOnAction {
+                    /*cp.setOnAction {
                         //println(crypto)
-                    }
+                    }*/
                     tableView.items.add(Item(getCrypto(crypto), cp, false))
+                    bt.isDisable = cryptoListNoUs.count() == 0
                 }
             }
             root.children.add(bt)
         }
 
+        // Кнопка Удалить
         run {
-            val delbt = Button("Удалить")
-            delbt.setOnAction {
+            delBt.setOnAction {
                 val si = tableView.selectionModel.selectedItem
                 returnColor(si.color)
                 returnCrypto(si.crypto)
                 tableView.items.remove(si)
-            }
 
-            root.children.add(delbt)
+                bt.isDisable = false
+            }
+            root.children.add(delBt)
         }
 
         run {
-            val refrbt = Button("Обновить график")
             root.children.add(refrbt)
+            refrbt.setOnAction {
+                graphBox.children.clear()
+                graphBox.children.add(updateChart())
+            }
         }
 
+
+        datePickerEnd.value = LocalDate.now()
+        datePickerStart.value = datePickerEnd.value.minusMonths(1)
+
+
+        root.children.add(period)
+        root.children.add(datePickerStart)
+        root.children.add(datePickerEnd)
+
+
         //Создаём сцену
-        val scene = Scene(root, 600.0, 400.0)
+        val scene = Scene(root, 1000.0, 800.0)
         stage.title = "Stacked Area Chart"
         //Устанавливаем сцену
         stage.scene = scene
@@ -181,74 +241,71 @@ class Kripta : Application() {
 
     private fun updateChart(): StackedAreaChart<String, Number> {
 
+
+        val tempStart = datePickerEnd.dateTimeValue.minusDays(period.value.maxPeriod);
+        if (tempStart.toEpochSecond(ZoneOffset.UTC) > datePickerStart.dateTimeValue.toEpochSecond(ZoneOffset.UTC)) {
+            datePickerStart.dateTimeValue = tempStart
+        }
+
+
         //Defining the axes
         val xAxis = CategoryAxis()
-        xAxis.categories = FXCollections.observableArrayList(
-            listOf("1750", "1800", "1850", "1900", "1950", "1999", "2050")
-        )
+        val start = datePickerStart.dateTimeValue.toEpochSecond(ZoneOffset.UTC) * 1000;
+        val end = datePickerEnd.dateTimeValue.toEpochSecond(ZoneOffset.UTC) * 1000
 
-        val yAxis = NumberAxis(0.0, 10000.0, 2500.0)
-        yAxis.label = "Population in Millions"
+
+        var maxPrice = Double.MIN_VALUE
+        var minPrice = Double.MAX_VALUE
+        var last: Crypto? = null;
+
+        for (i in tableView.items) {
+            if (!i.isActive) continue
+            getCoin.loadState(period.value, i.crypto, start, end)
+            for (h in i.crypto.history) {
+                maxPrice = max(h.priceUsd, maxPrice)
+                minPrice = min(h.priceUsd, minPrice)
+            }
+            last = i.crypto
+        }
+        maxPrice *= 3;
+
+        val yAxis = NumberAxis(minPrice, maxPrice, (maxPrice - minPrice) / 10)
+        yAxis.label = "Price"
+
+        val sdfDate = SimpleDateFormat("dd.MM.yy HH:mm")
+
+        if (last == null) return StackedAreaChart(xAxis, yAxis);
+
+        val dates = last.history.map { sdfDate.format(it.time) }.distinct()
+
+        xAxis.categories = FXCollections.observableArrayList(dates)
+
 
         //Creating the Area chart
         val areaChart = StackedAreaChart(xAxis, yAxis)
-        areaChart.title = "Historic and Estimated Worldwide Population Growth by Region"
+        areaChart.title = "Time"
 
-        //Prepare XYChart.Series objects by setting data
-        val series1 = XYChart.Series<String, Number>()
-        series1.name = "Asia"
-        series1.data.add(XYChart.Data("1750", 502))
-        series1.data.add(XYChart.Data("1800", 635))
-        series1.data.add(XYChart.Data("1825", 700))
-        series1.data.add(XYChart.Data("1850", 809))
-        series1.data.add(XYChart.Data("1900", 947))
-        series1.data.add(XYChart.Data("1950", 1402))
-        series1.data.add(XYChart.Data("1999", 3634))
-        series1.data.add(XYChart.Data("2050", 5268))
+        for (i in tableView.items) {
 
-        val series2 = XYChart.Series<String, Number>()
-        series2.name = "Africa"
-        series2.data.add(XYChart.Data("1750", 106))
-        series2.data.add(XYChart.Data("1800", 107))
-        series2.data.add(XYChart.Data("1850", 111))
-        series2.data.add(XYChart.Data("1900", 133))
-        series2.data.add(XYChart.Data("1950", 221))
-        series2.data.add(XYChart.Data("1999", 767))
-        series2.data.add(XYChart.Data("2050", 1766))
 
-        val series3 = XYChart.Series<String, Number>()
-        series3.name = "Europe"
+            if (!i.isActive) continue
+            val series1 = XYChart.Series<String, Number>()
+            series1.name = i.crypto.name
 
-        series3.data.add(XYChart.Data("1750", 163))
-        series3.data.add(XYChart.Data("1800", 203))
-        series3.data.add(XYChart.Data("1850", 276))
-        series3.data.add(XYChart.Data("1900", 408))
-        series3.data.add(XYChart.Data("1950", 547))
-        series3.data.add(XYChart.Data("1999", 729))
-        series3.data.add(XYChart.Data("2050", 628))
 
-        val series4 = XYChart.Series<String, Number>()
-        series4.name = "America"
-        series4.data.add(XYChart.Data("1750", 18))
-        series4.data.add(XYChart.Data("1800", 31))
-        series4.data.add(XYChart.Data("1850", 54))
-        series4.data.add(XYChart.Data("1900", 156))
-        series4.data.add(XYChart.Data("1950", 339))
-        series4.data.add(XYChart.Data("1999", 818))
-        series4.data.add(XYChart.Data("2050", 1201))
 
-        val series5 = XYChart.Series<String, Number>()
-        series5.name = "Oceania"
-        series5.data.add(XYChart.Data("1750", 2))
-        series5.data.add(XYChart.Data("1800", 2))
-        series5.data.add(XYChart.Data("1850", 2))
-        series5.data.add(XYChart.Data("1900", 6))
-        series5.data.add(XYChart.Data("1950", 13))
-        series5.data.add(XYChart.Data("1999", 30))
-        series5.data.add(XYChart.Data("2050", 46))
+            for (h in i.crypto.history) {
+                series1.data.add(XYChart.Data(sdfDate.format(h.time), h.priceUsd))
+            }
+            areaChart.data.add(series1)
 
-        //Setting the data to area chart
-        areaChart.data.addAll(series1, series2, series3, series4, series5)
+            val fill = series1.node.lookup(".chart-series-area-fill")
+            val line = series1.node.lookup(".chart-series-area-line")
+            val color = i.color.value
+            val rgb = "${color.red*255}, ${color.green*255}, ${color.blue*255}"
+            fill.style = "-fx-fill: rgba($rgb, 0.15);"
+            line.style = "-fx-stroke: rgba($rgb, 1.0);"
+        }
 
         return areaChart
     }

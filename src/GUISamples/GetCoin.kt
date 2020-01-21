@@ -43,20 +43,21 @@ class GetCoin {
 
     private val baseURL = "http://api.coincap.io/v2/assets"
 
-    public enum class EIntervalType(val value: String, val desc: String) {
-        MINUTE_1("m1", "1 минута"),
-        MINUTE_5("m5", "5 минут"),
-        MINUTE_15("m15", "15 минут"),
-        MINUTE_30("m30", "30 минут"),
+    public enum class EIntervalType(val value: String, val desc: String, val maxPeriod:Long = 29) {
+        MINUTE_1("m1", "1 минута", 1),
+        MINUTE_5("m5", "5 минут", 4),
+        MINUTE_15("m15", "15 минут", 6),
+        MINUTE_30("m30", "30 минут", 14),
         HOUR_1("h1", "1 час"),
         HOUR_2("h2", "2 часа"),
         HOUR_6("h6", "6 часов"),
         HOUR_12("h12", "12 часов"),
-        DAY("d1", "1 день")
+        DAY("d1", "1 день", 100)
     }
 
     fun loadState(interval: EIntervalType, crypto: Crypto, start: Long? = null, end: Long? = null): Crypto {
         val list = mutableListOf<Crypto.Event>()
+        crypto.history.clear()
 
         val paratmers = ArrayList<NameValuePair>()
         paratmers.add(BasicNameValuePair("interval", interval.value))
@@ -69,8 +70,8 @@ class GetCoin {
 
         try {
             val result = makeAPICall("$baseURL/$crypto/history", paratmers)
-            val data = JSONObject(result).getJSONArray("data");
             println(result)
+            val data = JSONObject(result).getJSONArray("data");
 
             for (i in 0 until data.length()) {
                 val info: JSONObject = data.getJSONObject(i)
