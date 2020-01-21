@@ -1,11 +1,11 @@
 package GUISamples
 
+import Crypto
 import GetCoin
 import javafx.application.Application
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.collections.FXCollections
 import javafx.event.Event
-import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.chart.CategoryAxis
 import javafx.scene.chart.NumberAxis
@@ -20,98 +20,155 @@ import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 
-class Kripta : Application() {
-    private var graph: Node? = null
 
+class Kripta : Application() {
     data class Item(
-        val name: String,
-        val cost: Double,
+        val crypto: Crypto,
         val color: ColorPicker,
         var isActive: Boolean,
         var select: Boolean = false
-    )
+    ) {
+        val name: String get() = crypto.name
+        val cost: Double get() = crypto.priceUsd
+    }
 
-    private val grtCoin: GetCoin = GetCoin()
+    private val getCoin: GetCoin = GetCoin()
+    private val colorList = mutableListOf<Color>()
+    private var cryptoListNoUs: MutableList<Crypto>
+    private var cryptoListUs = mutableListOf<Crypto>()
+
+    init {
+        for (f in Color::class.java.fields) colorList.add(f.get(null) as Color)
+        cryptoListNoUs = getCoin.coinNames().toMutableList()
+
+    }
+
+    private fun nextColor(): ColorPicker {
+        return ColorPicker(colorList.removeAt(colorList.lastIndex));
+    }
+
+    private fun returnColor(cp: ColorPicker) {
+        colorList.add(cp.value)
+    }
+
+    private fun getCrypto(cp: Crypto): Crypto {
+        cryptoListNoUs.remove(cp)
+        cryptoListUs.add(cp)
+        return cp;
+    }
+
+    private fun returnCrypto(cp: Crypto) {
+        cryptoListNoUs.add(0, cp)
+        cryptoListNoUs.sortBy { it.rank }
+        cryptoListUs.remove(cp)
+    }
+
 
     override fun start(stage: Stage) {
+        val graphBox = VBox()
 
-
-
-        graph = addChart() //дефолтный граф
+        graphBox.children.add(updateChart())
 
         val root = VBox()
-        root.children.add(graph)
+
+        root.children.add(graphBox)
+
+
         val tableView = TableView<Item>()
         tableView.isEditable = true
         root.children.add(tableView)
 
+        // Генерация таблицы
+        run {
+            val nameColumn = TableColumn<Item, String>("Name")
+            nameColumn.cellValueFactory = PropertyValueFactory("name")
+            tableView.columns.add(nameColumn)
 
-        val nameColumn = TableColumn<Item, String>("Name")
-        nameColumn.cellValueFactory = PropertyValueFactory("name")
-        tableView.columns.add(nameColumn)
+            val costColumn = TableColumn<Item, Double>("Cost")
+            costColumn.cellValueFactory = PropertyValueFactory("cost")
+            tableView.columns.add(costColumn)
 
-        val costColumn = TableColumn<Item, Double>("Cost")
-        costColumn.cellValueFactory = PropertyValueFactory("cost")
-        tableView.columns.add(costColumn)
+            val colorColumn = TableColumn<Item, ColorPicker>("Color")
+            colorColumn.cellValueFactory = PropertyValueFactory("color")
 
-        val colorColumn = TableColumn<Item, ColorPicker>("Color")
-        colorColumn.cellValueFactory = PropertyValueFactory("color")
+            tableView.columns.add(colorColumn)
 
-        tableView.columns.add(colorColumn)
+            val booleanColumn = TableColumn<Item, Boolean>("isActive")
+            booleanColumn.cellValueFactory = PropertyValueFactory("isActive")
 
-        val booleanColumn = TableColumn<Item, Boolean>("isActive")
-        booleanColumn.cellValueFactory = PropertyValueFactory("isActive")
-
-
-        booleanColumn.setCellFactory { column ->
-            val cell = CheckBoxTableCell<Item, Boolean> { index ->
-                val selected = SimpleBooleanProperty(
-                    tableView.items[index].isActive
-                )
-                selected.addListener { _, _, n ->
-                    tableView.items[index].isActive = n
-                    tableView.selectionModel.select(index)
-
-                    println(n)
-
-                    Event.fireEvent(
-                        column.tableView, MouseEvent(
-                            MouseEvent.MOUSE_CLICKED, 0.0, 0.0, 0.0, 0.0,
-                            MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null
-                        )
+            booleanColumn.setCellFactory { column ->
+                val cell = CheckBoxTableCell<Item, Boolean> { index ->
+                    val selected = SimpleBooleanProperty(
+                        tableView.items[index].isActive
                     )
+                    selected.addListener { _, _, n ->
+                        tableView.items[index].isActive = n
+                        tableView.selectionModel.select(index)
+
+                        println(n)
+
+                        Event.fireEvent(
+                            column.tableView, MouseEvent(
+                                MouseEvent.MOUSE_CLICKED, 0.0, 0.0, 0.0, 0.0,
+                                MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null
+                            )
+                        )
+                    }
+                    selected
                 }
-                selected
+                cell
             }
-            cell
-        }
-        tableView.columns.add(booleanColumn)
-
-        val cp = ColorPicker(Color.AQUA)
-        tableView.items.add(Item("Bitok", 100.0, cp, false))
-        cp.setOnAction {
-            println(it)
+            tableView.columns.add(booleanColumn)
         }
 
-        val bt = Button("Добавить")
 
-        bt.setOnAction {
-            val dialog = TextInputDialog("Tran")
-
-            dialog.title = "o7planning"
-            dialog.headerText = "Enter name:"
-            dialog.contentText = "Name:"
-
-            val result = dialog.showAndWait()
-
-            result.ifPresent {
-
-                tableView.items.add(Item(it, 100.0, ColorPicker(), false))
+        // Добавить тестовую валюту
+        run {
+            val cp = nextColor()
+            tableView.items.add(Item(getCrypto(cryptoListNoUs[0]), nextColor(), false))
+            cp.setOnAction {
+                println(it)
             }
         }
 
+        // Кнопка добавить
+        run {
+            val bt = Button("Добавить")
+            bt.setOnAction {
+                val dialog: ChoiceDialog<Crypto> = ChoiceDialog(cryptoListNoUs[0], cryptoListNoUs)
 
-        root.children.add(bt)
+                dialog.title = "Добавить"
+                dialog.headerText = "Выберите валюту:"
+
+                val result = dialog.showAndWait()
+
+                result.ifPresent { crypto ->
+                    val cp = nextColor()
+                    cp.setOnAction {
+                        //println(crypto)
+                    }
+                    tableView.items.add(Item(getCrypto(crypto), cp, false))
+                }
+            }
+            root.children.add(bt)
+        }
+
+        run {
+            val delbt = Button("Удалить")
+            delbt.setOnAction {
+                val si = tableView.selectionModel.selectedItem
+                returnColor(si.color)
+                returnCrypto(si.crypto)
+                tableView.items.remove(si)
+            }
+
+            root.children.add(delbt)
+        }
+
+        run {
+            val refrbt = Button("Обновить график")
+            root.children.add(refrbt)
+        }
 
         //Создаём сцену
         val scene = Scene(root, 600.0, 400.0)
@@ -122,7 +179,7 @@ class Kripta : Application() {
         stage.show()
     }
 
-    private fun addChart(): StackedAreaChart<String, Number> {
+    private fun updateChart(): StackedAreaChart<String, Number> {
 
         //Defining the axes
         val xAxis = CategoryAxis()
@@ -139,10 +196,10 @@ class Kripta : Application() {
 
         //Prepare XYChart.Series objects by setting data
         val series1 = XYChart.Series<String, Number>()
-
         series1.name = "Asia"
         series1.data.add(XYChart.Data("1750", 502))
         series1.data.add(XYChart.Data("1800", 635))
+        series1.data.add(XYChart.Data("1825", 700))
         series1.data.add(XYChart.Data("1850", 809))
         series1.data.add(XYChart.Data("1900", 947))
         series1.data.add(XYChart.Data("1950", 1402))
