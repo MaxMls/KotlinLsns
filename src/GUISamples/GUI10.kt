@@ -31,7 +31,7 @@ class GUI10 : Application() {
     inner class Bridge {
         fun showTime() {
             println("Show Time")
-            label!!.setText("Now is: " + df.format(Date()))
+            label.setText("Now is: " + df.format(Date()))
         }
     }
 
