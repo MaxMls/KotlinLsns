@@ -19,15 +19,15 @@ class ResizableRectangle extends Rectangle {
     private Paint rectangleStrokeColor = Color.BLACK;
 
     ResizableRectangle(double x, double y, double width, double height, Group group) {
-        super(x,y,width,height);
+        super(x, y, width, height);
         group.getChildren().add(this);
         super.setStroke(rectangleStrokeColor);
         super.setStrokeWidth(1);
         super.setFill(Color.color(1, 1, 1, 0));
 
 
-        Rectangle moveRect = new Rectangle(0,0,0,0);
-        moveRect.setFill(Color.color(1,1,1,0));
+        Rectangle moveRect = new Rectangle(0, 0, 0, 0);
+        moveRect.setFill(Color.color(1, 1, 1, 0));
         moveRect.xProperty().bind(super.xProperty());
         moveRect.yProperty().bind(super.yProperty());
         moveRect.widthProperty().bind(super.widthProperty());
@@ -51,14 +51,14 @@ class ResizableRectangle extends Rectangle {
         moveRect.addEventHandler(MouseEvent.MOUSE_EXITED, event ->
                 moveRect.getParent().setCursor(Cursor.DEFAULT));
 
-        moveRect.addEventHandler(MouseEvent.MOUSE_DRAGGED,event -> {
+        moveRect.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
 
             double offsetX = event.getX() - mouseClickPozX;
             double offsetY = event.getY() - mouseClickPozY;
-            double newX = super.getX() + offsetX ;
-            double newY = super.getY() + offsetY ;
+            double newX = super.getX() + offsetX;
+            double newY = super.getY() + offsetY;
 
-            if (newX >= 0 && newX + super.getWidth() <= super.getParent().getBoundsInLocal().getWidth() ) {
+            if (newX >= 0 && newX + super.getWidth() <= super.getParent().getBoundsInLocal().getWidth()) {
                 super.setX(newX);
             }
 
@@ -84,31 +84,31 @@ class ResizableRectangle extends Rectangle {
     }
 
     private void makeNWResizerSquare(Group group) {
-        Rectangle squareNW = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+        Rectangle squareNW = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
 
         squareNW.xProperty().bind(super.xProperty().subtract(squareNW.widthProperty().divide(2.0)));
         squareNW.yProperty().bind(super.yProperty().subtract(squareNW.heightProperty().divide(2.0)));
         group.getChildren().add(squareNW);
 
-        squareNW.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareNW.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareNW.getParent().setCursor(Cursor.NW_RESIZE));
 
         prepareResizerSquare(squareNW);
 
-        squareNW.addEventHandler(MouseEvent.MOUSE_DRAGGED,event -> {
+        squareNW.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
             rectangleStartX = super.getX();
             rectangleStartY = super.getY();
             double offsetX = event.getX() - rectangleStartX;
             double offsetY = event.getY() - rectangleStartY;
-            double newX = super.getX() + offsetX ;
-            double newY = super.getY() + offsetY ;
+            double newX = super.getX() + offsetX;
+            double newY = super.getY() + offsetY;
 
-            if (newX >= 0 && newX <= super.getX() + super.getWidth() ) {
+            if (newX >= 0 && newX <= super.getX() + super.getWidth()) {
                 super.setX(newX);
                 super.setWidth(super.getWidth() - offsetX);
             }
 
-            if (newY >= 0 && newY <= super.getY() + super.getHeight() ) {
+            if (newY >= 0 && newY <= super.getY() + super.getHeight()) {
                 super.setY(newY);
                 super.setHeight(super.getHeight() - offsetY);
             }
@@ -117,13 +117,13 @@ class ResizableRectangle extends Rectangle {
     }
 
     private void makeCWResizerSquare(Group group) {
-        Rectangle squareCW = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+        Rectangle squareCW = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
         squareCW.xProperty().bind(super.xProperty().subtract(squareCW.widthProperty().divide(2.0)));
         squareCW.yProperty().bind(super.yProperty().add(super.heightProperty().divide(2.0).subtract(
                 squareCW.heightProperty().divide(2.0))));
         group.getChildren().add(squareCW);
 
-        squareCW.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareCW.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareCW.getParent().setCursor(Cursor.W_RESIZE));
 
         prepareResizerSquare(squareCW);
@@ -143,13 +143,13 @@ class ResizableRectangle extends Rectangle {
     }
 
     private void makeSWResizerSquare(Group group) {
-        Rectangle squareSW = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+        Rectangle squareSW = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
         squareSW.xProperty().bind(super.xProperty().subtract(squareSW.widthProperty().divide(2.0)));
         squareSW.yProperty().bind(super.yProperty().add(super.heightProperty().subtract(
                 squareSW.heightProperty().divide(2.0))));
         group.getChildren().add(squareSW);
 
-        squareSW.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareSW.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareSW.getParent().setCursor(Cursor.SW_RESIZE));
 
         prepareResizerSquare(squareSW);
@@ -173,7 +173,7 @@ class ResizableRectangle extends Rectangle {
     }
 
     private void makeSCResizerSquare(Group group) {
-        Rectangle squareSC = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+        Rectangle squareSC = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
 
         squareSC.xProperty().bind(super.xProperty().add(super.widthProperty().divide(2.0).subtract(
                 squareSC.widthProperty().divide(2.0))));
@@ -181,12 +181,12 @@ class ResizableRectangle extends Rectangle {
                 squareSC.heightProperty().divide(2.0))));
         group.getChildren().add(squareSC);
 
-        squareSC.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareSC.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareSC.getParent().setCursor(Cursor.S_RESIZE));
 
         prepareResizerSquare(squareSC);
 
-        squareSC.addEventHandler(MouseEvent.MOUSE_DRAGGED,event -> {
+        squareSC.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
             rectangleStartY = super.getY();
             double offsetY = event.getY() - rectangleStartY;
 
@@ -198,14 +198,14 @@ class ResizableRectangle extends Rectangle {
     }
 
     private void makeSEResizerSquare(Group group) {
-        Rectangle squareSE = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+        Rectangle squareSE = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
         squareSE.xProperty().bind(super.xProperty().add(super.widthProperty()).subtract(
                 squareSE.widthProperty().divide(2.0)));
         squareSE.yProperty().bind(super.yProperty().add(super.heightProperty().subtract(
                 squareSE.heightProperty().divide(2.0))));
         group.getChildren().add(squareSE);
 
-        squareSE.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareSE.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareSE.getParent().setCursor(Cursor.SE_RESIZE));
 
         prepareResizerSquare(squareSE);
@@ -227,14 +227,14 @@ class ResizableRectangle extends Rectangle {
     }
 
     private void makeCEResizerSquare(Group group) {
-        Rectangle squareCE = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+        Rectangle squareCE = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
         squareCE.xProperty().bind(super.xProperty().add(super.widthProperty()).subtract(
                 squareCE.widthProperty().divide(2.0)));
         squareCE.yProperty().bind(super.yProperty().add(super.heightProperty().divide(2.0).subtract(
                 squareCE.heightProperty().divide(2.0))));
         group.getChildren().add(squareCE);
 
-        squareCE.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareCE.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareCE.getParent().setCursor(Cursor.E_RESIZE));
 
         prepareResizerSquare(squareCE);
@@ -249,25 +249,25 @@ class ResizableRectangle extends Rectangle {
         });
     }
 
-    private void makeNEResizerSquare(Group group){
-        Rectangle squareNE = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+    private void makeNEResizerSquare(Group group) {
+        Rectangle squareNE = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
 
         squareNE.xProperty().bind(super.xProperty().add(super.widthProperty()).subtract(
                 squareNE.widthProperty().divide(2.0)));
         squareNE.yProperty().bind(super.yProperty().subtract(squareNE.heightProperty().divide(2.0)));
         group.getChildren().add(squareNE);
 
-        squareNE.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareNE.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareNE.getParent().setCursor(Cursor.NE_RESIZE));
 
         prepareResizerSquare(squareNE);
 
-        squareNE.addEventHandler(MouseEvent.MOUSE_DRAGGED,event -> {
+        squareNE.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
             rectangleStartX = super.getX();
             rectangleStartY = super.getY();
             double offsetX = event.getX() - rectangleStartX;
             double offsetY = event.getY() - rectangleStartY;
-            double newY = super.getY() + offsetY ;
+            double newY = super.getY() + offsetY;
 
             if (offsetX >= 0 && offsetX <= super.getX() + super.getWidth() - 5) {
                 super.setWidth(offsetX);
@@ -281,8 +281,8 @@ class ResizableRectangle extends Rectangle {
         });
     }
 
-    private void makeNCResizerSquare(Group group){
-        Rectangle squareNC = new Rectangle(RESIZER_SQUARE_SIDE,RESIZER_SQUARE_SIDE);
+    private void makeNCResizerSquare(Group group) {
+        Rectangle squareNC = new Rectangle(RESIZER_SQUARE_SIDE, RESIZER_SQUARE_SIDE);
 
         squareNC.xProperty().bind(super.xProperty().add(super.widthProperty().divide(2.0).subtract(
                 squareNC.widthProperty().divide(2.0))));
@@ -290,15 +290,15 @@ class ResizableRectangle extends Rectangle {
                 squareNC.heightProperty().divide(2.0)));
         group.getChildren().add(squareNC);
 
-        squareNC.addEventHandler(MouseEvent.MOUSE_ENTERED,event ->
+        squareNC.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
                 squareNC.getParent().setCursor(Cursor.N_RESIZE));
 
         prepareResizerSquare(squareNC);
 
-        squareNC.addEventHandler(MouseEvent.MOUSE_DRAGGED,event -> {
+        squareNC.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
             rectangleStartY = super.getY();
             double offsetY = event.getY() - rectangleStartY;
-            double newY = super.getY() + offsetY ;
+            double newY = super.getY() + offsetY;
 
             if (newY >= 0 && newY <= super.getY() + super.getHeight()) {
                 super.setY(newY);
@@ -314,7 +314,6 @@ class ResizableRectangle extends Rectangle {
         rect.addEventHandler(MouseEvent.MOUSE_EXITED, event ->
                 rect.getParent().setCursor(Cursor.DEFAULT));
     }
-
 
 
 }

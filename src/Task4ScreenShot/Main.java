@@ -50,7 +50,7 @@ public class Main extends Application {
 
         final BorderPane borderPane = new BorderPane();
         final ScrollPane rootPane = new ScrollPane();
-        final Scene scene =  new Scene(borderPane, 800, 800);
+        final Scene scene = new Scene(borderPane, 800, 800);
         mainImageView = new ImageView();
         final AreaSelection areaSelection = new AreaSelection();
         final Group selectionGroup = new Group();
@@ -61,7 +61,7 @@ public class Main extends Application {
 
         final MenuItem open = new MenuItem("Open");
         final MenuItem clear = new MenuItem("Clear");
-        menu1.getItems().addAll(open,clear);
+        menu1.getItems().addAll(open, clear);
         clear.setOnAction(event -> {
             clearSelection(selectionGroup);
             mainImageView.setImage(null);
@@ -89,7 +89,7 @@ public class Main extends Application {
                 clearSelection(selectionGroup);
                 mainImage = convertFileToImage(selectedFile);
                 mainImageView.setImage(mainImage);
-                changeStageSizeImageDimensions(primaryStage,mainImage);
+                changeStageSizeImageDimensions(primaryStage, mainImage);
             }
         });
 
@@ -100,7 +100,7 @@ public class Main extends Application {
         selectionGroup.getChildren().add(mainImageView);
         rootPane.setContent(selectionGroup);
         borderPane.setCenter(rootPane);
-        menuBar.getMenus().addAll(menu1,menu2);
+        menuBar.getMenus().addAll(menu1, menu2);
         borderPane.setTop(menuBar);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -125,12 +125,12 @@ public class Main extends Application {
         final Stage croppedImageStage = new Stage();
         croppedImageStage.setResizable(true);
         croppedImageStage.setTitle("Cropped Image");
-        changeStageSizeImageDimensions(croppedImageStage,croppedImage);
+        changeStageSizeImageDimensions(croppedImageStage, croppedImage);
         final BorderPane borderPane = new BorderPane();
         final MenuBar menuBar = new MenuBar();
         final Menu menu1 = new Menu("File");
         final MenuItem save = new MenuItem("Save");
-        save.setOnAction(event -> saveCroppedImage(croppedImageStage,wi));
+        save.setOnAction(event -> saveCroppedImage(croppedImageStage, wi));
         menu1.getItems().add(save);
         menuBar.getMenus().add(menu1);
         borderPane.setTop(menuBar);
@@ -174,7 +174,7 @@ public class Main extends Application {
     private void clearSelection(Group group) {
         //deletes everything except for base container layer
         isAreaSelected = false;
-        group.getChildren().remove(1,group.getChildren().size());
+        group.getChildren().remove(1, group.getChildren().size());
 
     }
 
@@ -182,22 +182,21 @@ public class Main extends Application {
         if (image != null) {
             stage.setMinHeight(250);
             stage.setMinWidth(250);
-            stage.setWidth(image.getWidth()+4);
-            stage.setHeight(image.getHeight()+56);
+            stage.setWidth(image.getWidth() + 4);
+            stage.setHeight(image.getHeight() + 56);
         }
         stage.show();
     }
 
     private Image convertFileToImage(File imageFile) {
         Image image = null;
-        try (FileInputStream fileInputStream = new FileInputStream(imageFile)){
+        try (FileInputStream fileInputStream = new FileInputStream(imageFile)) {
             image = new Image(fileInputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return image;
     }
-
 
 
     private class AreaSelection {
@@ -207,7 +206,7 @@ public class Main extends Application {
         private ResizableRectangle selectionRectangle = null;
         private double rectangleStartX;
         private double rectangleStartY;
-        private Paint darkAreaColor = Color.color(0,0,0,0.5);
+        private Paint darkAreaColor = Color.color(0, 0, 0, 0.5);
 
         private ResizableRectangle selectArea(Group group) {
             this.group = group;
@@ -279,10 +278,10 @@ public class Main extends Application {
 
 
         private void darkenOutsideRectangle(Rectangle rectangle) {
-            Rectangle darkAreaTop = new Rectangle(0,0,darkAreaColor);
-            Rectangle darkAreaLeft = new Rectangle(0,0,darkAreaColor);
-            Rectangle darkAreaRight = new Rectangle(0,0,darkAreaColor);
-            Rectangle darkAreaBottom = new Rectangle(0,0,darkAreaColor);
+            Rectangle darkAreaTop = new Rectangle(0, 0, darkAreaColor);
+            Rectangle darkAreaLeft = new Rectangle(0, 0, darkAreaColor);
+            Rectangle darkAreaRight = new Rectangle(0, 0, darkAreaColor);
+            Rectangle darkAreaBottom = new Rectangle(0, 0, darkAreaColor);
 
             darkAreaTop.widthProperty().bind(mainImage.widthProperty());
             darkAreaTop.heightProperty().bind(rectangle.yProperty());
@@ -303,10 +302,10 @@ public class Main extends Application {
                     rectangle.yProperty().add(rectangle.heightProperty())));
 
             // adding dark area rectangles before the selectionRectangle. So it can't overlap rectangle
-            group.getChildren().add(1,darkAreaTop);
-            group.getChildren().add(1,darkAreaLeft);
-            group.getChildren().add(1,darkAreaBottom);
-            group.getChildren().add(1,darkAreaRight);
+            group.getChildren().add(1, darkAreaTop);
+            group.getChildren().add(1, darkAreaLeft);
+            group.getChildren().add(1, darkAreaBottom);
+            group.getChildren().add(1, darkAreaRight);
 
             // make dark area container layer as well
             darkAreaTop.addEventHandler(MouseEvent.MOUSE_PRESSED, onMousePressedEventHandler);

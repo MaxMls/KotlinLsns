@@ -150,7 +150,7 @@ public class AreaSelection {
         darkAreaBottom.addEventHandler(MouseEvent.MOUSE_RELEASED, onMouseReleasedEventHandler);
     }
 
-    public void stopSelection(){
+    public void stopSelection() {
         selectMode = false;
     }
 
@@ -178,7 +178,7 @@ public class AreaSelection {
 
         canvas.setHeight(height);
         canvas.setWidth(width);
-        canvas.getGraphicsContext2D().drawImage(croppedImage, 0,0);
+        canvas.getGraphicsContext2D().drawImage(croppedImage, 0, 0);
 
         //showCroppedImageNewStage(wi, croppedImage);
     }

@@ -43,7 +43,7 @@ class MyScreenShot : Application() {
             c.cropTools.isVisible = true
             c.stTools.isVisible = false
             areaSelection.selectArea(c.selectionGroup, c.canvas)
-            c.drawMode = false;
+            c.drawMode = false
 
         }
 
@@ -52,7 +52,7 @@ class MyScreenShot : Application() {
             c.stTools.isVisible = true
             areaSelection.clearSelection(c.selectionGroup)
             cropMode = false
-            c.drawMode = true;
+            c.drawMode = true
             areaSelection.stopSelection()
         }
 
@@ -62,7 +62,7 @@ class MyScreenShot : Application() {
             areaSelection.cropImage()
             areaSelection.clearSelection(c.selectionGroup)
             cropMode = false
-            c.drawMode = true;
+            c.drawMode = true
             areaSelection.stopSelection()
         }
 
@@ -72,9 +72,9 @@ class MyScreenShot : Application() {
                 primaryStage.hide()
                 Thread.sleep((c.durationSlider.value * 1000.0).toLong())
             }
-            val screenSize = Toolkit.getDefaultToolkit().screenSize;
-            val captureRect = Rectangle(0, 0, screenSize.width, screenSize.height);
-            val screenFullImage = robot.createScreenCapture(captureRect);
+            val screenSize = Toolkit.getDefaultToolkit().screenSize
+            val captureRect = Rectangle(0, 0, screenSize.width, screenSize.height)
+            val screenFullImage = robot.createScreenCapture(captureRect)
             c.canvas.height = screenSize.height.toDouble()
             c.canvas.width = screenSize.width.toDouble()
 
@@ -93,7 +93,7 @@ class MyScreenShot : Application() {
                 val img = convertFileToImage(selectedFile)
                 c.canvas.height = img.height
                 c.canvas.width = img.width
-                c.canvas.graphicsContext2D.drawImage(img, 0.0,0.0)
+                c.canvas.graphicsContext2D.drawImage(img, 0.0, 0.0)
             }
         }
 
@@ -122,10 +122,10 @@ class MyScreenShot : Application() {
             val robot = Robot()
             val fileName = "screen.jpg"
 
-            val screenSize = Toolkit.getDefaultToolkit().screenSize;
-            val captureRect = Rectangle(0, 0, screenSize.width / 2, screenSize.height / 2);
-            val screenFullImage = robot.createScreenCapture(captureRect);
-            ImageIO.write(screenFullImage, "jpg", File(fileName));
+            val screenSize = Toolkit.getDefaultToolkit().screenSize
+            val captureRect = Rectangle(0, 0, screenSize.width / 2, screenSize.height / 2)
+            val screenFullImage = robot.createScreenCapture(captureRect)
+            ImageIO.write(screenFullImage, "jpg", File(fileName))
 
             print("Done")
         } catch (ex: IOException) {
@@ -141,7 +141,7 @@ class MyScreenShot : Application() {
     }
 
     private fun convertFileToImage(imageFile: File): Image {
-        lateinit var image: Image;
+        lateinit var image: Image
         try {
             FileInputStream(imageFile).use { fileInputStream -> image = Image(fileInputStream) }
         } catch (e: Exception) {

@@ -47,11 +47,7 @@ class Controller {
     @FXML
     lateinit var stTools: ToolBar
 
-    public var drawMode = true;
-
-    init {
-
-    }
+    var drawMode = true
 
     @FXML
     fun onDraggedSize() {
@@ -65,38 +61,32 @@ class Controller {
 
     @FXML
     fun openFile() {
-
-        val fileChooser = FileChooser()
-        fileChooser.title = "Open Image file"
-        fileChooser.extensionFilters.addAll(
-            FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg")
-        )
-/*        val selectedFile = fileChooser.showOpenDialog(primaryStage)
-        if (selectedFile != null) {
-
-
-            *//*clearSelection(selectionGroup)
-            mainImage = convertFileToImage(selectedFile)
-            mainImageView.setImage(mainImage)
-            changeStageSizeImageDimensions(primaryStage, mainImage)*//*
-        }*/
     }
 
+    var oldX: Double? = null
+    var oldY: Double? = null
 
     @FXML
-    fun canvasDragged(e : MouseEvent) {
+    fun canvasDragged(e: MouseEvent) {
         if (!drawMode) return
-        var g = canvas.graphicsContext2D;
+        val g = canvas.graphicsContext2D
         val size = sizeSlider.value
-        val x = e.x - size / 2
-        val y = e.y - size / 2
+        val x = e.x
+        val y = e.y
 
-        if (e.button == MouseButton.SECONDARY) {
-            g.clearRect(x, y, size, size)
-        } else {
-            g.fill = cp.value
-            g.fillRect(x, y, size, size)
+        if (oldX != null && oldY != null) {
+            g.stroke = cp.value
+            g.lineWidth = size
+            g.strokeLine(oldX!!, oldY!!, x, y)
         }
+        oldX = x
+        oldY = y
+    }
+
+    @FXML
+    fun dragdone(e: MouseEvent) {
+        oldX = null
+        oldY = null
     }
 
 }
