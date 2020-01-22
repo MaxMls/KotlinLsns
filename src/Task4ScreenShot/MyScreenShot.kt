@@ -5,8 +5,14 @@ import javafx.embed.swing.SwingFXUtils
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
+import javafx.scene.SnapshotParameters
 import javafx.scene.control.Slider
 import javafx.scene.image.Image
+import javafx.scene.image.WritableImage
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
+import javafx.scene.paint.Color
 import javafx.stage.FileChooser
 import javafx.stage.Stage
 import java.awt.Rectangle
@@ -15,7 +21,10 @@ import java.awt.Toolkit
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import javax.imageio.ImageIO
+import javax.swing.JFileChooser
 
 
 class MyScreenShot : Application() {
@@ -66,6 +75,15 @@ class MyScreenShot : Application() {
             areaSelection.stopSelection()
         }
 
+        c.saveBt.setOnAction {
+            saveImage(primaryStage)
+        }
+        c.saveBt.accelerator = KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN)
+
+        c.saveAsBt.setOnAction {
+            saveImage(primaryStage, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC).toString())
+        }
+        c.saveAsBt.accelerator = KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN)
 
         c.shotBt.setOnAction {
             if (c.hidable.isSelected) {
@@ -150,4 +168,31 @@ class MyScreenShot : Application() {
 
         return image
     }
+
+
+    private fun saveImage(stage: Stage) {
+        val fileChooser = FileChooser()
+        fileChooser.title = "Save Image"
+        fileChooser.initialFileName = "cats.png"
+        fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("portable network graphics",".png"))
+        val file = fileChooser.showSaveDialog(stage) ?: return
+        saveImage(stage, file)
+
+    }
+    private fun saveImage(stage: Stage, s: String){
+        val p =  JFileChooser().fileSystemView.defaultDirectory.toString();
+
+
+        saveImage(stage, File("$p\\$s.png").absoluteFile)
+    }
+
+    private fun saveImage(stage: Stage, file: File){
+        val sp = SnapshotParameters();
+        sp.fill = Color.TRANSPARENT;
+        val wi = WritableImage(c.canvas.width.toInt(), c.canvas.height.toInt())
+        ImageIO.write(SwingFXUtils.fromFXImage(c.canvas.snapshot(sp, wi), null), "png", file)
+    }
+
+
+
 }

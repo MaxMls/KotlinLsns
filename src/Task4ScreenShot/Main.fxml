@@ -8,68 +8,60 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="667.0" prefWidth="1141.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Task4ScreenShot.Controller">
+<VBox prefHeight="667.0" prefWidth="1141.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Task4ScreenShot.Controller">
     <children>
         <MenuBar>
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
                     <items>
-                        <MenuItem fx:id="openBt" mnemonicParsing="false" onAction="#openFile"
-                                  text="Открыть изображение"/>
-                        <MenuItem fx:id="saveBt" mnemonicParsing="false" text="Сохранить изображение как... Ctrl+S"/>
-                        <MenuItem fx:id="saveAsBt" mnemonicParsing="false"
-                                  text="Сохранить изображение в мои документы Ctrl+D"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem fx:id="exitBt" mnemonicParsing="false" text="Выход"/>
+                        <MenuItem fx:id="openBt" mnemonicParsing="false" onAction="#openFile" text="Открыть изображение" />
+                        <MenuItem fx:id="saveBt" mnemonicParsing="false" text="Сохранить изображение как..." />
+                        <MenuItem fx:id="saveAsBt" mnemonicParsing="false" text="Быстрое сохранение" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="exitBt" mnemonicParsing="false" text="Выход" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Инструменты">
                     <items>
-                        <MenuItem fx:id="crop" mnemonicParsing="false" text="Кадрирование"/>
+                        <MenuItem fx:id="crop" mnemonicParsing="false" text="Кадрирование" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
         <ToolBar fx:id="stTools" prefHeight="40.0" prefWidth="200.0">
             <items>
-                <Button fx:id="shotBt" defaultButton="true" mnemonicParsing="false" text="Сделать снимок"/>
-                <Separator layoutX="226.0" layoutY="10.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0"/>
-                <Text layoutX="246.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Цвет кисти"/>
+                <Button fx:id="shotBt" defaultButton="true" mnemonicParsing="false" text="Сделать снимок" />
+                <Separator layoutX="226.0" layoutY="10.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                <Text layoutX="246.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Цвет кисти" />
                 <ColorPicker fx:id="cp" prefHeight="25.0" prefWidth="41.0" promptText="Цвет кисти">
                     <value>
-                        <Color red="1.0"/>
+                        <Color red="1.0" />
                     </value>
                 </ColorPicker>
-                <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0"/>
-                <Text layoutX="348.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Размер кисти"/>
-                <Slider fx:id="sizeSlider" max="18.0" min="1.0" onMouseDragged="#onDraggedSize" prefHeight="14.0"
-                        prefWidth="118.0" value="18.0"/>
-                <Text fx:id="sizeText" strokeType="OUTSIDE" strokeWidth="0.0" text="18" wrappingWidth="15.9375"/>
-                <Separator layoutX="301.0" layoutY="10.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0"/>
-                <CheckBox fx:id="hidable" mnemonicParsing="false" text="Скрывать приложение"/>
-                <Separator layoutX="522.0" layoutY="10.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0"/>
-                <Text layoutX="311.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Таймер"/>
-                <Slider fx:id="durationSlider" layoutX="389.0" layoutY="18.0" max="10.0" min="0.2"
-                        onMouseDragged="#timeDragged" prefHeight="14.0" prefWidth="118.0"/>
-                <Text fx:id="timer" layoutX="693.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0"
-                      wrappingWidth="14.9375"/>
-                <Text layoutX="861.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="сек."/>
+                <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                <Text layoutX="348.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Размер кисти" />
+                <Slider fx:id="sizeSlider" max="18.0" min="1.0" onMouseDragged="#onDraggedSize" prefHeight="14.0" prefWidth="118.0" value="18.0" />
+                <Text fx:id="sizeText" strokeType="OUTSIDE" strokeWidth="0.0" text="18" wrappingWidth="15.9375" />
+                <Separator layoutX="301.0" layoutY="10.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                <CheckBox fx:id="hidable" mnemonicParsing="false" text="Скрывать приложение" />
+                <Separator layoutX="522.0" layoutY="10.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                <Text layoutX="311.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Таймер" />
+                <Slider fx:id="durationSlider" layoutX="389.0" layoutY="18.0" max="10.0" min="0.2" onMouseDragged="#timeDragged" prefHeight="14.0" prefWidth="118.0" />
+                <Text fx:id="timer" layoutX="693.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.9375" />
+                <Text layoutX="861.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="сек." />
             </items>
         </ToolBar>
         <ToolBar fx:id="cropTools" prefHeight="40.0" prefWidth="200.0">
             <items>
-                <Button fx:id="cancelCropBt" cancelButton="true" mnemonicParsing="false" text="Отмена"/>
-                <Button fx:id="applyCropBt" defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                        text="Обрезать"/>
+                <Button fx:id="cancelCropBt" cancelButton="true" mnemonicParsing="false" text="Отмена" />
+                <Button fx:id="applyCropBt" defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Обрезать" />
             </items>
         </ToolBar>
         <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <content>
                 <Group fx:id="selectionGroup">
                     <children>
-                        <Canvas fx:id="canvas" height="588.0" nodeOrientation="INHERIT" onMouseDragged="#canvasDragged"
-                                onMouseReleased="#dragdone" width="1053.0"/>
+                        <Canvas fx:id="canvas" height="588.0" nodeOrientation="INHERIT" onMouseDragged="#canvasDragged" onMouseReleased="#dragdone" width="1053.0" />
                     </children>
                 </Group>
             </content>
