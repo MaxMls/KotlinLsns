@@ -1,22 +1,19 @@
 package Task4ScreenShot
 
 import javafx.application.Application
-import javafx.event.EventHandler
+import javafx.embed.swing.SwingFXUtils
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
-import javafx.scene.canvas.Canvas
-import javafx.scene.control.*
-import javafx.scene.input.MouseButton
-import javafx.scene.input.MouseEvent
-import javafx.scene.layout.VBox
-import javafx.scene.paint.Color
-import javafx.scene.text.Text
+import javafx.scene.control.Slider
+import javafx.scene.image.Image
+import javafx.stage.FileChooser
 import javafx.stage.Stage
 import java.awt.Rectangle
 import java.awt.Robot
 import java.awt.Toolkit
 import java.io.File
+import java.io.FileInputStream
 import java.io.IOException
 import javax.imageio.ImageIO
 
@@ -27,7 +24,10 @@ class MyScreenShot : Application() {
     val slider = Slider(0.0, 10.0, 0.0)
 
     lateinit var c: Controller
+    val robot = Robot()
 
+    val areaSelection = AreaSelection()
+    var cropMode = false
 
     override fun start(primaryStage: Stage) {
 
@@ -35,25 +35,68 @@ class MyScreenShot : Application() {
         val root = loader.load<Parent>()
         c = loader.getController<Controller>()
 
-        c.shotBt.onAction = EventHandler {
-            savePart()
+        c.stTools.managedProperty().bind(c.stTools.visibleProperty())
+        c.cropTools.managedProperty().bind(c.cropTools.visibleProperty())
+        c.cropTools.isVisible = false
+
+        c.crop.setOnAction {
+            c.cropTools.isVisible = true
+            c.stTools.isVisible = false
+            areaSelection.selectArea(c.selectionGroup, c.canvas)
+            c.drawMode = false;
+
         }
 
-        var g = c.canvas
-            .graphicsContext2D
+        c.cancelCropBt.setOnAction {
+            c.cropTools.isVisible = false
+            c.stTools.isVisible = true
+            areaSelection.clearSelection(c.selectionGroup)
+            cropMode = false
+            c.drawMode = true;
+            areaSelection.stopSelection()
+        }
 
-        c.canvas.onMouseDragged = EventHandler<MouseEvent> { e ->
-            val size = brushSize
-            val x = e.x - size / 2
-            val y = e.y - size / 2
+        c.applyCropBt.setOnAction {
+            c.cropTools.isVisible = false
+            c.stTools.isVisible = true
+            areaSelection.cropImage()
+            areaSelection.clearSelection(c.selectionGroup)
+            cropMode = false
+            c.drawMode = true;
+            areaSelection.stopSelection()
+        }
 
-            if (e.button == MouseButton.SECONDARY) {
-                g.clearRect(x, y, size, size)
-            } else {
-                g.fill = c.cp.value
-                g.fillRect(x, y, size, size)
+
+        c.shotBt.setOnAction {
+            if (c.hidable.isSelected) {
+                primaryStage.hide()
+                Thread.sleep((c.durationSlider.value * 1000.0).toLong())
+            }
+            val screenSize = Toolkit.getDefaultToolkit().screenSize;
+            val captureRect = Rectangle(0, 0, screenSize.width, screenSize.height);
+            val screenFullImage = robot.createScreenCapture(captureRect);
+            c.canvas.height = screenSize.height.toDouble()
+            c.canvas.width = screenSize.width.toDouble()
+
+            c.canvas.graphicsContext2D.drawImage(SwingFXUtils.toFXImage(screenFullImage, null), 0.0, 0.0)
+            primaryStage.show()
+        }
+
+        c.openBt.setOnAction {
+            val fileChooser = FileChooser()
+            fileChooser.title = "Open Image file"
+            fileChooser.extensionFilters.addAll(
+                FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg")
+            )
+            val selectedFile = fileChooser.showOpenDialog(primaryStage)
+            if (selectedFile != null) {
+                val img = convertFileToImage(selectedFile)
+                c.canvas.height = img.height
+                c.canvas.width = img.width
+                c.canvas.graphicsContext2D.drawImage(img, 0.0,0.0)
             }
         }
+
 
         val scene = Scene(root)
         primaryStage.scene = scene
@@ -62,11 +105,11 @@ class MyScreenShot : Application() {
 
     fun saveAsPng() {
         try {
-            var robot = Robot()
-            var fileName = "screen.jpg"
+            val robot = Robot()
+            val fileName = "screen.jpg"
 
-            var screenRect = Rectangle(Toolkit.getDefaultToolkit().getScreenSize())
-            var screenFullImage = robot.createScreenCapture(screenRect)
+            val screenRect = Rectangle(Toolkit.getDefaultToolkit().screenSize)
+            val screenFullImage = robot.createScreenCapture(screenRect)
             ImageIO.write(screenFullImage, "jpg", File(fileName))
             print("Done")
         } catch (ex: IOException) {
@@ -76,12 +119,12 @@ class MyScreenShot : Application() {
 
     fun savePart() {
         try {
-            var robot = Robot()
-            var fileName = "screen.jpg"
+            val robot = Robot()
+            val fileName = "screen.jpg"
 
-            var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            var captureRect = Rectangle(0, 0, screenSize.width / 2, screenSize.height / 2);
-            var screenFullImage = robot.createScreenCapture(captureRect);
+            val screenSize = Toolkit.getDefaultToolkit().screenSize;
+            val captureRect = Rectangle(0, 0, screenSize.width / 2, screenSize.height / 2);
+            val screenFullImage = robot.createScreenCapture(captureRect);
             ImageIO.write(screenFullImage, "jpg", File(fileName));
 
             print("Done")
@@ -95,5 +138,16 @@ class MyScreenShot : Application() {
         fun main(args: Array<String>) {
             Application.launch(MyScreenShot::class.java)
         }
+    }
+
+    private fun convertFileToImage(imageFile: File): Image {
+        lateinit var image: Image;
+        try {
+            FileInputStream(imageFile).use { fileInputStream -> image = Image(fileInputStream) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return image
     }
 }

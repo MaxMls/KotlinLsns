@@ -48,7 +48,6 @@ public class Main extends Application {
         primaryStage.setTitle(APPLICATION_NAME);
         primaryStage.setResizable(true);
 
-
         final BorderPane borderPane = new BorderPane();
         final ScrollPane rootPane = new ScrollPane();
         final Scene scene =  new Scene(borderPane, 800, 800);
@@ -77,7 +76,7 @@ public class Main extends Application {
         menu2.getItems().add(crop);
         crop.setOnAction(event -> {
             if (isAreaSelected)
-                cropImage(areaSelection.selectArea(selectionGroup).getBoundsInParent(),mainImageView);
+                cropImage(areaSelection.selectArea(selectionGroup).getBoundsInParent(), mainImageView);
         });
 
         open.setOnAction(event -> {
