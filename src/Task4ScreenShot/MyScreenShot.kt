@@ -6,7 +6,8 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.SnapshotParameters
-import javafx.scene.control.Slider
+import javafx.scene.control.Alert
+import javafx.scene.control.TextArea
 import javafx.scene.image.Image
 import javafx.scene.image.WritableImage
 import javafx.scene.input.KeyCode
@@ -15,12 +16,12 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.paint.Color
 import javafx.stage.FileChooser
 import javafx.stage.Stage
+import org.json.JSONObject
 import java.awt.Rectangle
 import java.awt.Robot
 import java.awt.Toolkit
 import java.io.File
 import java.io.FileInputStream
-import java.io.IOException
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import javax.imageio.ImageIO
@@ -29,13 +30,10 @@ import javax.swing.JFileChooser
 
 class MyScreenShot : Application() {
 
-    var brushSize = 18.0
-    val slider = Slider(0.0, 10.0, 0.0)
-
     lateinit var c: Controller
-    val robot = Robot()
+    private val robot = Robot()
 
-    val areaSelection = AreaSelection()
+    private val areaSelection = AreaSelection()
     var cropMode = false
 
     override fun start(primaryStage: Stage) {
@@ -81,7 +79,7 @@ class MyScreenShot : Application() {
         c.saveBt.accelerator = KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN)
 
         c.saveAsBt.setOnAction {
-            saveImage(primaryStage, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC).toString())
+            saveImage(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC).toString())
         }
         c.saveAsBt.accelerator = KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN)
 
@@ -121,40 +119,10 @@ class MyScreenShot : Application() {
         primaryStage.show()
     }
 
-    fun saveAsPng() {
-        try {
-            val robot = Robot()
-            val fileName = "screen.jpg"
-
-            val screenRect = Rectangle(Toolkit.getDefaultToolkit().screenSize)
-            val screenFullImage = robot.createScreenCapture(screenRect)
-            ImageIO.write(screenFullImage, "jpg", File(fileName))
-            print("Done")
-        } catch (ex: IOException) {
-            print(ex)
-        }
-    }
-
-    fun savePart() {
-        try {
-            val robot = Robot()
-            val fileName = "screen.jpg"
-
-            val screenSize = Toolkit.getDefaultToolkit().screenSize
-            val captureRect = Rectangle(0, 0, screenSize.width / 2, screenSize.height / 2)
-            val screenFullImage = robot.createScreenCapture(captureRect)
-            ImageIO.write(screenFullImage, "jpg", File(fileName))
-
-            print("Done")
-        } catch (ex: IOException) {
-            print(ex)
-        }
-    }
-
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            Application.launch(MyScreenShot::class.java)
+            launch(MyScreenShot::class.java)
         }
     }
 
@@ -171,28 +139,53 @@ class MyScreenShot : Application() {
 
 
     private fun saveImage(stage: Stage) {
+        var dir = File("/")
+
+        try {
+            val json = File("settings.json").readText(Charsets.UTF_8)
+            dir = File(JSONObject(json).getString("dir"))
+        } catch (e: Exception) {
+        }
+
+
         val fileChooser = FileChooser()
         fileChooser.title = "Save Image"
-        fileChooser.initialFileName = "cats.png"
-        fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("portable network graphics",".png"))
+
+        fileChooser.initialDirectory = File(dir.parent)
+        fileChooser.initialFileName = dir.nameWithoutExtension
+
+        fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("portable network graphics", "*.png"))
         val file = fileChooser.showSaveDialog(stage) ?: return
-        saveImage(stage, file)
+        saveImage(file)
+
+        val j = JSONObject()
+        j.put("dir", file.absoluteFile)
+        File("settings.json").writeText(j.toString())
 
     }
-    private fun saveImage(stage: Stage, s: String){
-        val p =  JFileChooser().fileSystemView.defaultDirectory.toString();
+
+    private fun saveImage(s: String) {
+        val p = JFileChooser().fileSystemView.defaultDirectory.toString();
 
 
-        saveImage(stage, File("$p\\$s.png").absoluteFile)
+        saveImage(File("$p\\$s.png").absoluteFile)
     }
 
-    private fun saveImage(stage: Stage, file: File){
+    private fun saveImage(file: File) {
         val sp = SnapshotParameters();
         sp.fill = Color.TRANSPARENT;
         val wi = WritableImage(c.canvas.width.toInt(), c.canvas.height.toInt())
         ImageIO.write(SwingFXUtils.fromFXImage(c.canvas.snapshot(sp, wi), null), "png", file)
-    }
 
+        val dialog = Alert(Alert.AlertType.INFORMATION)
+
+        dialog.title = "Изображение сохранено"
+        dialog.headerText = "Изображение успешно сохранено в файл:"
+        val ta = TextArea(file.toString())
+        ta.isEditable = false
+        dialog.dialogPane.content = ta
+        dialog.showAndWait()
+    }
 
 
 }
