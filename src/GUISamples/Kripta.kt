@@ -6,12 +6,10 @@ import javafx.application.Application
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.collections.FXCollections
 import javafx.event.Event
-import javafx.event.EventHandler
-import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.chart.CategoryAxis
+import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
-import javafx.scene.chart.StackedAreaChart
 import javafx.scene.chart.XYChart
 import javafx.scene.control.*
 import javafx.scene.control.cell.CheckBoxTableCell
@@ -22,14 +20,9 @@ import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.util.StringConverter
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
@@ -54,8 +47,8 @@ class Kripta : Application() {
     private val refrbt = Button("Обновить график")
     private val bt = Button("Добавить")
     private val tableView = TableView<Item>()
-    val datePickerStart = DateTimePicker()
-    val datePickerEnd = DateTimePicker()
+    private val datePickerStart = DateTimePicker()
+    private val datePickerEnd = DateTimePicker()
     val period = ChoiceBox(FXCollections.observableArrayList(GetCoin.EIntervalType.values().toList()))
 
     init {
@@ -71,18 +64,16 @@ class Kripta : Application() {
                 return o.desc
             }
 
-
             override fun fromString(string: String): GetCoin.EIntervalType {
                 return period.items.filter {
                     it.desc == string
                 }[0]
             }
-
         }
     }
 
     private fun nextColor(): ColorPicker {
-        return ColorPicker(colorList.removeAt(colorList.lastIndex));
+        return ColorPicker(colorList.removeAt(colorList.lastIndex))
     }
 
     private fun returnColor(cp: ColorPicker) {
@@ -92,7 +83,7 @@ class Kripta : Application() {
     private fun getCrypto(cp: Crypto): Crypto {
         cryptoListNoUs.remove(cp)
         cryptoListUs.add(cp)
-        return cp;
+        return cp
     }
 
     private fun returnCrypto(cp: Crypto) {
@@ -144,8 +135,6 @@ class Kripta : Application() {
                         tableView.items[index].isActive = n
                         tableView.selectionModel.select(index)
 
-                        println(n)
-
                         Event.fireEvent(
                             column.tableView, MouseEvent(
                                 MouseEvent.MOUSE_CLICKED, 0.0, 0.0, 0.0, 0.0,
@@ -158,26 +147,17 @@ class Kripta : Application() {
                 cell
             }
             tableView.columns.add(booleanColumn)
-
-
         }
 
         delBt.isDisable = true
-        tableView.selectionModel.selectedItemProperty().addListener { observable, oldValue, newValue ->
+        tableView.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
             delBt.isDisable = cryptoListUs.count() == 0 || newValue == null
         }
 
-
-        // Добавить тестовую валюту
         run {
-            val cp = nextColor()
             tableView.items.add(Item(getCrypto(cryptoListNoUs[0]), nextColor(), true))
-            cp.setOnAction {
-                println(it)
-            }
         }
 
-        // Кнопка добавить
         run {
             bt.setOnAction {
                 val dialog: ChoiceDialog<Crypto> = ChoiceDialog(cryptoListNoUs[0], cryptoListNoUs)
@@ -189,9 +169,6 @@ class Kripta : Application() {
 
                 result.ifPresent { crypto ->
                     val cp = nextColor()
-                    /*cp.setOnAction {
-                        //println(crypto)
-                    }*/
                     tableView.items.add(Item(getCrypto(crypto), cp, false))
                     bt.isDisable = cryptoListNoUs.count() == 0
                 }
@@ -230,86 +207,89 @@ class Kripta : Application() {
         root.children.add(datePickerEnd)
 
 
-        //Создаём сцену
         val scene = Scene(root, 1000.0, 800.0)
-        stage.title = "Stacked Area Chart"
-        //Устанавливаем сцену
+        stage.title = "Crypto"
         stage.scene = scene
-        //Показываем окно
         stage.show()
     }
 
-    private fun updateChart(): StackedAreaChart<String, Number> {
+    private fun updateChart(): LineChart<String, Number> {
 
-
-        val tempStart = datePickerEnd.dateTimeValue.minusDays(period.value.maxPeriod);
+        val tempStart = datePickerEnd.dateTimeValue.minusDays(period.value.maxPeriod)
         if (tempStart.toEpochSecond(ZoneOffset.UTC) > datePickerStart.dateTimeValue.toEpochSecond(ZoneOffset.UTC)) {
             datePickerStart.dateTimeValue = tempStart
         }
 
-
-        //Defining the axes
-        val xAxis = CategoryAxis()
-        val start = datePickerStart.dateTimeValue.toEpochSecond(ZoneOffset.UTC) * 1000;
+        val start = datePickerStart.dateTimeValue.toEpochSecond(ZoneOffset.UTC) * 1000
         val end = datePickerEnd.dateTimeValue.toEpochSecond(ZoneOffset.UTC) * 1000
 
+        val threads = mutableListOf<Thread>()
+        // asynk
+        for (i in tableView.items) {
+            if (!i.isActive) continue
+            val thread = Thread {
+                getCoin.loadState(period.value, i.crypto, start, end)
+            }
+            threads.add(thread)
+            thread.start()
+        }
+
+        for (t in threads) {
+            t.join()
+        }
 
         var maxPrice = Double.MIN_VALUE
         var minPrice = Double.MAX_VALUE
-        var last: Crypto? = null;
+        var last: Crypto? = null
 
         for (i in tableView.items) {
             if (!i.isActive) continue
-            getCoin.loadState(period.value, i.crypto, start, end)
             for (h in i.crypto.history) {
                 maxPrice = max(h.priceUsd, maxPrice)
                 minPrice = min(h.priceUsd, minPrice)
             }
             last = i.crypto
         }
-        maxPrice *= 3;
 
         val yAxis = NumberAxis(minPrice, maxPrice, (maxPrice - minPrice) / 10)
         yAxis.label = "Price"
 
         val sdfDate = SimpleDateFormat("dd.MM.yy HH:mm")
 
-        if (last == null) return StackedAreaChart(xAxis, yAxis);
+        val xAxis = CategoryAxis()
+        if (last == null) return LineChart(xAxis, yAxis)
 
         val dates = last.history.map { sdfDate.format(it.time) }.distinct()
 
         xAxis.categories = FXCollections.observableArrayList(dates)
 
-
-        //Creating the Area chart
-        val areaChart = StackedAreaChart(xAxis, yAxis)
+        val areaChart = LineChart(xAxis, yAxis)
         areaChart.title = "Time"
 
-        for (i in tableView.items) {
+        var style = ""
 
+        tableView.items.forEachIndexed { index, i ->
 
-            if (!i.isActive) continue
-            val series1 = XYChart.Series<String, Number>()
-            series1.name = i.crypto.name
+            if (i.isActive) {
+                val series1 = XYChart.Series<String, Number>()
+                series1.name = i.crypto.name
 
+                for (h in i.crypto.history) {
+                    series1.data.add(XYChart.Data(sdfDate.format(h.time), h.priceUsd))
+                }
+                areaChart.data.add(series1)
 
+                val color = i.color.value
+                val rgb = "${color.red * 255}, ${color.green * 255}, ${color.blue * 255}"
 
-            for (h in i.crypto.history) {
-                series1.data.add(XYChart.Data(sdfDate.format(h.time), h.priceUsd))
+                style += "CHART_COLOR_${index + 1}: rgba($rgb, 1.0) ;"
             }
-            areaChart.data.add(series1)
-
-            val fill = series1.node.lookup(".chart-series-area-fill")
-            val line = series1.node.lookup(".chart-series-area-line")
-            val color = i.color.value
-            val rgb = "${color.red*255}, ${color.green*255}, ${color.blue*255}"
-            fill.style = "-fx-fill: rgba($rgb, 0.15);"
-            line.style = "-fx-stroke: rgba($rgb, 1.0);"
         }
+
+        areaChart.style = style
 
         return areaChart
     }
-
 
     companion object {
         @JvmStatic
