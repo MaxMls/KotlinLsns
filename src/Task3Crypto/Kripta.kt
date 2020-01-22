@@ -1,4 +1,4 @@
-package GUISamples
+package Task3Crypto
 
 import Crypto
 import GetCoin
@@ -276,7 +276,7 @@ class Kripta : Application() {
         root.children.addAll(buttonBar,periodBar)
 
         val scene = Scene(root, 1000.0, 800.0)
-        stage.title = "Crypto"
+        stage.title = ""
         stage.scene = scene
         stage.show()
     }
