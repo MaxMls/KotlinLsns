@@ -6,6 +6,8 @@ import javafx.application.Application
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.collections.FXCollections
 import javafx.event.Event
+import javafx.geometry.Insets
+import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.chart.CategoryAxis
 import javafx.scene.chart.LineChart
@@ -16,10 +18,14 @@ import javafx.scene.control.cell.CheckBoxTableCell
 import javafx.scene.control.cell.PropertyValueFactory
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
+import javafx.scene.layout.FlowPane
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
+import javafx.scene.text.Text
 import javafx.stage.Stage
 import javafx.util.StringConverter
+import org.json.JSONObject
+import java.io.File
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -43,16 +49,22 @@ class Kripta : Application() {
     private var cryptoListNoUs: MutableList<Crypto>
     private var cryptoListUs = mutableListOf<Crypto>()
 
-    private val delBt = Button("Удалить")
-    private val refrbt = Button("Обновить график")
-    private val bt = Button("Добавить")
+    private val delBt = Button("Удалить валюту")
+    private val refrBt = Button("Обновить график")
+    private val bt = Button("Добавить валюту")
+    private val saveBt = Button("Сохранить текущие настройки")
     private val tableView = TableView<Item>()
     private val datePickerStart = DateTimePicker()
     private val datePickerEnd = DateTimePicker()
     val period = ChoiceBox(FXCollections.observableArrayList(GetCoin.EIntervalType.values().toList()))
 
     init {
-        for (f in Color::class.java.fields) colorList.add(f.get(null) as Color)
+        for (f in Color::class.java.fields) {
+            val c = f.get(null) as Color
+            if (c.opacity > 0.9)
+                colorList.add(c)
+        }
+
         cryptoListNoUs = getCoin.coinNames().toMutableList()
 
         period.value = GetCoin.EIntervalType.DAY
@@ -70,6 +82,69 @@ class Kripta : Application() {
                 }[0]
             }
         }
+
+        // load settings from json
+        try {
+            val json = File("settings.json").readText(Charsets.UTF_8)
+
+            val items = JSONObject(json).getJSONArray("items")
+
+            for (i in 0 until items.length()) {
+                val info = items.getJSONObject(i)
+
+                val color = info.getJSONObject("color")
+                val r = color.getInt("r")
+                val g = color.getInt("g")
+                val b = color.getInt("b")
+                var c = colorList.find {
+                    (it.red * 255).toInt() == r && (it.green * 255).toInt() == color.getInt("g") && (it.blue * 255).toInt() == color.getInt(
+                        "b"
+                    )
+                }
+                if (c != null)
+                    colorList.remove(c)
+                else
+                    c = Color.color(r / 255.0, g / 255.0, b / 255.0)
+
+                val id = info.getString("id")
+                val crypto = cryptoListNoUs.find {
+                    it.id == id
+                }
+                val isActive = info.getBoolean("active")
+                if (crypto == null) throw Exception("invalid file")
+
+                tableView.items.add(Item(getCrypto(crypto), ColorPicker(c), isActive))
+            }
+            bt.isDisable = cryptoListNoUs.count() == 0
+        } catch (e: Exception) {
+            if (tableView.items.count() == 0)
+                tableView.items.add(Item(getCrypto(cryptoListNoUs[0]), nextColor(), true))
+        }
+    }
+
+    private fun save() {
+        val j = JSONObject()
+
+        class TempColor(val r: Int, val g: Int, val b: Int)
+        class Temp(val color: TempColor, val id: String, val active: Boolean)
+
+        val list = mutableListOf<Temp>()
+        for (i in tableView.items)
+            list.add(
+                Temp(
+                    TempColor(
+                        (i.color.value.red * 255).toInt(),
+                        (i.color.value.green * 255).toInt(),
+                        (i.color.value.blue * 255).toInt()
+                    ), i.crypto.id, i.isActive
+                )
+            )
+        j.put("items", list)
+        File("settings.json").writeText(j.toString())
+    }
+
+    private fun rgb(color: Color): String {
+        return "${color.red * 255}, ${color.green * 255}, ${color.blue * 255}"
     }
 
     private fun nextColor(): ColorPicker {
@@ -149,63 +224,56 @@ class Kripta : Application() {
             tableView.columns.add(booleanColumn)
         }
 
+
+
         delBt.isDisable = true
         tableView.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
             delBt.isDisable = cryptoListUs.count() == 0 || newValue == null
         }
 
-        run {
-            tableView.items.add(Item(getCrypto(cryptoListNoUs[0]), nextColor(), true))
-        }
+        bt.setOnAction {
+            val dialog = ChoiceDialog(cryptoListNoUs[0], cryptoListNoUs)
 
-        run {
-            bt.setOnAction {
-                val dialog: ChoiceDialog<Crypto> = ChoiceDialog(cryptoListNoUs[0], cryptoListNoUs)
-
-                dialog.title = "Добавить"
-                dialog.headerText = "Выберите валюту:"
-
-                val result = dialog.showAndWait()
-
-                result.ifPresent { crypto ->
-                    val cp = nextColor()
-                    tableView.items.add(Item(getCrypto(crypto), cp, false))
-                    bt.isDisable = cryptoListNoUs.count() == 0
-                }
-            }
-            root.children.add(bt)
-        }
-
-        // Кнопка Удалить
-        run {
-            delBt.setOnAction {
-                val si = tableView.selectionModel.selectedItem
-                returnColor(si.color)
-                returnCrypto(si.crypto)
-                tableView.items.remove(si)
-
-                bt.isDisable = false
-            }
-            root.children.add(delBt)
-        }
-
-        run {
-            root.children.add(refrbt)
-            refrbt.setOnAction {
-                graphBox.children.clear()
-                graphBox.children.add(updateChart())
+            dialog.title = "Добавить"
+            dialog.headerText = "Выберите валюту:"
+            dialog.showAndWait().ifPresent { crypto ->
+                tableView.items.add(Item(getCrypto(crypto), nextColor(), false))
+                bt.isDisable = cryptoListNoUs.count() == 0
             }
         }
 
+        delBt.setOnAction {
+            val si = tableView.selectionModel.selectedItem
+            returnColor(si.color)
+            returnCrypto(si.crypto)
+            tableView.items.remove(si)
+            bt.isDisable = false
+        }
+
+        refrBt.setOnAction {
+            graphBox.children.clear()
+            graphBox.children.add(updateChart())
+        }
+
+        saveBt.setOnAction {
+            save()
+        }
 
         datePickerEnd.value = LocalDate.now()
         datePickerStart.value = datePickerEnd.value.minusMonths(1)
 
+        val buttonBar = FlowPane()
+        buttonBar.alignment = Pos.BASELINE_CENTER
+        buttonBar.padding = Insets(10.0)
+        buttonBar.children.addAll(bt,delBt,refrBt,saveBt)
 
-        root.children.add(period)
-        root.children.add(datePickerStart)
-        root.children.add(datePickerEnd)
+        val periodBar = FlowPane()
+        periodBar.padding = Insets(10.0)
+        periodBar.alignment = Pos.BASELINE_CENTER
 
+        periodBar.children.addAll(Text(" Период: "), period, Text(" Начало: "), datePickerStart, Text(" Конец: "), datePickerEnd)
+
+        root.children.addAll(buttonBar,periodBar)
 
         val scene = Scene(root, 1000.0, 800.0)
         stage.title = "Crypto"
@@ -280,7 +348,7 @@ class Kripta : Application() {
                 areaChart.data.add(series1)
 
                 val color = i.color.value
-                val rgb = "${color.red * 255}, ${color.green * 255}, ${color.blue * 255}"
+                val rgb = rgb(color)
 
                 style += "CHART_COLOR_${index + 1}: rgba($rgb, 1.0) ;"
             }
