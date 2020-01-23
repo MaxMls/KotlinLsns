@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0"
+      prefWidth="1027.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Controller" >
+    <children>
+        <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Воспроизведение">
+                    <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                    <items>
+                                        <Separator orientation="VERTICAL" prefHeight="4.0" prefWidth="11.0"/>
+                                        <Text layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Громкость" wrappingWidth="65.6796875"/>
+                                        <Slider fx:id="volumesli"/>
+                                        <Separator layoutX="142.0" layoutY="10.0" orientation="VERTICAL"
+                                                   prefHeight="4.0" prefWidth="11.0"/>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сейчас играет:"/>
+                                        <Text fx:id="nameCurSong" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Ничего"/>
+                                    </items>
+                                </ToolBar>
+                                <HBox alignment="CENTER" prefHeight="45.0" prefWidth="1027.0"
+                                      style="-fx-background-color: white;">
+                                    <children>
+                                        <Text fx:id="tleftt" strokeType="OUTSIDE" strokeWidth="0.0" text="10:10"
+                                              wrappingWidth="51.5390625"/>
+                                        <Slider fx:id="tSl" maxWidth="1.7976931348623157E308" prefHeight="28.0"
+                                                prefWidth="724.0">
+                                            <opaqueInsets>
+                                                <Insets/>
+                                            </opaqueInsets>
+                                        </Slider>
+                                        <Text fx:id="trit" layoutX="136.0" layoutY="33.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="-10:10" wrappingWidth="57.5390625"/>
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </HBox>
+                                <Separator prefWidth="200.0"/>
+                                <HBox alignment="CENTER" prefHeight="47.0" prefWidth="1027.0"
+                                      style="-fx-background-color: #9FEBFB;">
+                                    <children>
+                                        <ToolBar prefHeight="40.0" prefWidth="131.0"
+                                                 style="-fx-background-color: #9FEBFB;">
+                                            <items>
+                                                <Button fx:id="prevBt" mnemonicParsing="false" text="|&lt;"/>
+                                                <Button fx:id="pauseBt" mnemonicParsing="false" text="||"/>
+                                                <Button fx:id="playBt" mnemonicParsing="false" text="|&gt;"/>
+                                                <Button fx:id="nextBt" mnemonicParsing="false" text="&gt;|"/>
+                                            </items>
+                                        </ToolBar>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Медиа Библиотека">
+                    <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                    <items>
+                                        <Button fx:id="addSongBt" mnemonicParsing="false" text="Добавить"/>
+                                        <Button fx:id="delSonfBt" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                                                text="Удалить"/>
+                                        <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="20.0">
+                                            <opaqueInsets>
+                                                <Insets/>
+                                            </opaqueInsets>
+                                        </Separator>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Жанр:"/>
+                                        <ChoiceBox fx:id="genreChoice" prefHeight="25.0" prefWidth="100.0"/>
+                                        <Text layoutX="147.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Исполнитель:" wrappingWidth="76.876953125"/>
+                                        <ChoiceBox fx:id="artistChoice" layoutX="182.0" layoutY="10.0" prefHeight="25.0"
+                                                   prefWidth="102.0"/>
+                                        <Text layoutX="305.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Альбом:" wrappingWidth="50.1171875"/>
+                                        <ChoiceBox fx:id="albumChoice" layoutX="384.0" layoutY="10.0" prefHeight="25.0"
+                                                   prefWidth="104.0"/>
+                                        <Text layoutX="489.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Год:" wrappingWidth="27.85546875"/>
+                                        <ChoiceBox fx:id="yearChoice" layoutX="539.0" layoutY="10.0" prefHeight="25.0"
+                                                   prefWidth="72.0"/>
+                                    </items>
+                                </ToolBar>
+                                <TableView fx:id="tm" editable="true" maxHeight="1.7976931348623157E308">
+                                    <columns>
+                                        <TableColumn  prefWidth="29.0" text="№"/>
+                                        <TableColumn  prefWidth="294.0" text="Название"/>
+                                        <TableColumn prefWidth="76.0" text="Длина"/>
+                                        <TableColumn  text="Жанр"/>
+                                        <TableColumn  prefWidth="107.0" text="Исполнитель"/>
+                                        <TableColumn  prefWidth="127.0" text="Альбом"/>
+                                        <TableColumn  prefWidth="79.0" text="Год"/>
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Исполнитель">
+                    <content>
+                        <WebView prefHeight="-1.0" prefWidth="-1.0"/>
+                    </content>
+                </Tab>
+                <Tab text="Текст песни">
+                    <content>
+                        <WebView prefHeight="200.0" prefWidth="200.0"/>
+                    </content>
+                </Tab>
+                <Tab text="Эквалайзер">
+                    <content>
+                        <VBox>
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="193.0" prefWidth="1027.0">
+                                    <children>
+                                        <VBox alignment="CENTER" prefHeight="171.0" prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="80.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="150.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="220.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="290.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="430.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="500.0" layoutY="10.0" prefHeight="171.0"
+                                              prefWidth="70.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0"
+                                                        prefWidth="28.0"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets top="15.0"/>
+                                    </opaqueInsets>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Визуализация"/>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>
