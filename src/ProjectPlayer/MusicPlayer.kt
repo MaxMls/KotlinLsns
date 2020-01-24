@@ -37,6 +37,7 @@ class MusicPlayer(val sliders: Collection<Slider>) {
     private var isFirstDurationGet = false
     private var newPos: Double? = null
     private var volume: Double = 1.0
+    private var isSongPlaying: Boolean = false
 
     private lateinit var p: MediaPlayer
 
@@ -59,7 +60,8 @@ class MusicPlayer(val sliders: Collection<Slider>) {
 
                     if (abs(p.currentTime.toMillis() - totalDuration.toMillis()) < 0.001) {
                         p.dispose()
-                        playerRefresh = false;
+                        playerRefresh = false
+                        isSongPlaying = false
                         onSongEnd?.invoke()
                         continue
                     }
@@ -86,6 +88,7 @@ class MusicPlayer(val sliders: Collection<Slider>) {
         changePos = false
         isFirstDurationGet = false
         newPos = null
+        isSongPlaying = true
 
         try{p.dispose()}catch (e:Exception){}
         p = MediaPlayer(Media(Paths.get(pathToSong).toUri().toString()));
@@ -103,21 +106,25 @@ class MusicPlayer(val sliders: Collection<Slider>) {
     }
 
     fun pause() {
+        if (!isSongPlaying) return
         playerRefresh = false
         p.pause()
         p.startTime = p.currentTime
     }
 
     fun play() {
+        if (!isSongPlaying) return
         playerRefresh = true
         p.play()
     }
 
     fun setPos(pos: Double) {
+        if (!isSongPlaying) return
         newPos = pos
     }
 
     fun stop() {
+        if (!isSongPlaying) return
         playerRefresh = false
         p.stop()
         p.startTime = Duration(.0)
@@ -126,6 +133,7 @@ class MusicPlayer(val sliders: Collection<Slider>) {
 
     fun setVolume(v: Double) {
         volume = v;
+        if (!isSongPlaying) return
         p.volume = v
     }
 

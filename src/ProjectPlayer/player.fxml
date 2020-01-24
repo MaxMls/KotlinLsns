@@ -93,14 +93,17 @@
                                                 <Insets />
                                             </opaqueInsets>
                                         </Separator>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Жанр:" />
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сейчас играет:" />
+                                        <Text fx:id="nameCurSong2" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ничего" />
+
+                                        <!--<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Жанр:" />
                                         <ChoiceBox fx:id="genreChoice" prefHeight="25.0" prefWidth="100.0" />
                                         <Text layoutX="147.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Исполнитель:" wrappingWidth="76.876953125" />
                                         <ChoiceBox fx:id="artistChoice" layoutX="182.0" layoutY="10.0" prefHeight="25.0" prefWidth="102.0" />
                                         <Text layoutX="305.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Альбом:" wrappingWidth="50.1171875" />
                                         <ChoiceBox fx:id="albumChoice" layoutX="384.0" layoutY="10.0" prefHeight="25.0" prefWidth="104.0" />
                                         <Text layoutX="489.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Год:" wrappingWidth="27.85546875" />
-                                        <ChoiceBox fx:id="yearChoice" layoutX="539.0" layoutY="10.0" prefHeight="25.0" prefWidth="72.0" />
+                                        <ChoiceBox fx:id="yearChoice" layoutX="539.0" layoutY="10.0" prefHeight="25.0" prefWidth="72.0" />-->
                                     </items>
                                 </ToolBar>
                                 <TableView fx:id="tm" editable="true" maxHeight="1.7976931348623157E308" prefHeight="484.0" prefWidth="1027.0">

@@ -27,6 +27,8 @@ class Controller : Initializable {
     @FXML
     lateinit var nameCurSong: Text
     @FXML
+    lateinit var nameCurSong2: Text
+    @FXML
     lateinit var alltime: Text
     @FXML
     lateinit var pauseBt: Button
@@ -64,6 +66,7 @@ class Controller : Initializable {
     val sliders = mutableListOf<Slider>()
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
+        nameCurSong2.textProperty().bind(nameCurSong.textProperty())
         for (c in slidersPaneBox.children) {
             val vb = (c as VBox)
             val t = vb.children[0] as Text

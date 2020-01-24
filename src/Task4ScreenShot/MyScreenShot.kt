@@ -26,6 +26,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import javax.imageio.ImageIO
 import javax.swing.JFileChooser
+import kotlin.system.exitProcess
 
 
 class MyScreenShot : Application() {
@@ -74,7 +75,7 @@ class MyScreenShot : Application() {
             areaSelection.stopSelection()
         }
         c.exitBt.setOnAction {
-            primaryStage.close()
+            exitProcess(0)
         }
 
         c.saveBt.setOnAction {

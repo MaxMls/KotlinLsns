@@ -10,34 +10,34 @@
 <?import javafx.scene.layout.*?>
 
 
-<ScrollPane prefHeight="118.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="537.0" style="-fx-padding: 9;">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="142.0" prefWidth="488.0" scaleShape="false" style="-fx-padding: 9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Settings">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="519.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="519.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Директория сохранения настроек:" wrappingWidth="216.033203125" />
-                  <TextField fx:id="pathF" prefHeight="25.0" prefWidth="212.0" text="/" />
-                  <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="17.0" />
-                  <Button fx:id="pathBt" mnemonicParsing="false" text="Выбрать" />
-               </children>
-            </HBox>
-            <Separator prefHeight="17.0" prefWidth="519.0" />
-            <HBox alignment="BASELINE_RIGHT" prefHeight="29.0" prefWidth="519.0" style="-fx-padding: 10;">
-               <children>
-                  <Button fx:id="sub" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Принять">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </Button>
-                  <Separator orientation="VERTICAL" prefHeight="74.0" prefWidth="15.0" />
-                  <Button fx:id="can" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Отмена" />
-               </children>
-            </HBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Директория сохранения настроек:" wrappingWidth="216.033203125" />
          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-   </content>
-</ScrollPane>
+      </HBox>
+      <Separator prefHeight="17.0" prefWidth="519.0" />
+      <HBox alignment="CENTER_LEFT" layoutX="19.0" layoutY="19.0" prefHeight="52.0" prefWidth="519.0" style="-fx-padding: 10;">
+         <children>
+            <TextField fx:id="pathF" prefHeight="25.0" prefWidth="466.0" text="/" />
+            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="61.0" />
+            <Button fx:id="pathBt" mnemonicParsing="false" text="Выбрать" />
+         </children>
+      </HBox>
+      <HBox alignment="BASELINE_RIGHT" prefHeight="75.0" prefWidth="519.0" style="-fx-padding: 20;">
+         <children>
+            <Button fx:id="sub" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Принять">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Separator orientation="VERTICAL" prefHeight="74.0" prefWidth="15.0" />
+            <Button fx:id="can" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Отмена" />
+         </children>
+      </HBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</VBox>
