@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
+<?import javafx.scene.control.cell.*?>
 <?import java.lang.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="1027.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Controller">
     <children>
-        <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE">
+        <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="629.0" prefWidth="1027.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Воспроизведение">
                     <content>
@@ -84,16 +88,47 @@
                                         <ChoiceBox fx:id="yearChoice" layoutX="539.0" layoutY="10.0" prefHeight="25.0" prefWidth="72.0" />
                                     </items>
                                 </ToolBar>
-                                <TableView fx:id="tm" editable="true" maxHeight="1.7976931348623157E308">
+                                <TableView fx:id="tm" editable="true" maxHeight="1.7976931348623157E308" prefHeight="484.0" prefWidth="1027.0">
                                     <columns>
-                                        <TableColumn prefWidth="29.0" text="№" />
-                                        <TableColumn prefWidth="294.0" text="Название" />
-                                        <TableColumn prefWidth="76.0" text="Длина" />
-                                        <TableColumn text="Жанр" />
-                                        <TableColumn prefWidth="107.0" text="Исполнитель" />
-                                        <TableColumn prefWidth="127.0" text="Альбом" />
-                                        <TableColumn prefWidth="79.0" text="Год" />
+                                        <TableColumn prefWidth="40.0" text="№">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="id" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="283.0" text="Название">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="title" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="76.0" text="Длина">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="duration" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Жанр">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="genre" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="107.0" text="Исполнитель">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="artist" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="127.0" text="Альбом">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="album" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="79.0" text="Год">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="releaseYear" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                     </columns>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList" />
+                                    </items>
                                 </TableView>
                             </children>
                         </VBox>
@@ -111,64 +146,80 @@
                 </Tab>
                 <Tab text="Эквалайзер">
                     <content>
-                        <VBox>
+                        <VBox prefHeight="197.0" prefWidth="1027.0">
                             <children>
-                                <HBox alignment="CENTER" prefHeight="193.0" prefWidth="1027.0">
+                                <HBox fx:id="slidersPaneBox" alignment="CENTER" prefHeight="300.0" prefWidth="1027.0">
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="32Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="64Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="80.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="125Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="150.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="250Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="220.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="500Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="290.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1kHz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2kHz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="430.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4kHz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="500.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8kHz" />
                                             </children>
                                         </VBox>
+                              <VBox alignment="CENTER" layoutX="769.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16kHz" />
+                                 </children>
+                              </VBox>
                                     </children>
                                     <opaqueInsets>
                                         <Insets top="15.0" />

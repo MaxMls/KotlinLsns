@@ -1,5 +1,6 @@
 package ProjectPlayer
 
+import javafx.scene.control.Slider
 import javafx.scene.media.EqualizerBand
 import javafx.scene.media.Media
 import javafx.scene.media.MediaPlayer
@@ -9,7 +10,7 @@ import java.nio.file.Paths
 import kotlin.math.abs
 
 
-class MusicPlayer {
+class MusicPlayer(val sliders: Collection<Slider>) {
 
     private var onSongEnd: (() -> Unit)? = null
     fun setOnSongEnd(listener: () -> Unit) {
@@ -48,6 +49,14 @@ class MusicPlayer {
 
         p = MediaPlayer(Media(Paths.get(pathToSong).toUri().toString()));
         p.volume = volume
+
+        sliders.forEachIndexed { i, s ->
+            p.audioEqualizer.bands[i].gain = s.value
+            s.valueProperty().addListener { _, _, newValue ->
+                p.audioEqualizer.bands[i].gain = newValue as Double
+            }
+        }
+
 
         p.audioEqualizer.bands.add(EqualizerBand())
         val t = Thread {
@@ -101,7 +110,6 @@ class MusicPlayer {
         p.play()
     }
 
-    // pos: 0.0 - 1.0
     fun setPos(pos: Double) {
         newPos = pos
     }

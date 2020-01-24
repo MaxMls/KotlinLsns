@@ -1,11 +1,24 @@
 package ProjectPlayer
 
+import javafx.beans.value.ChangeListener
 import javafx.fxml.FXML
-import javafx.scene.control.*
+import javafx.fxml.Initializable
+import javafx.scene.control.Button
+import javafx.scene.control.ChoiceBox
+import javafx.scene.control.Slider
+import javafx.scene.control.TableView
 import javafx.scene.input.MouseEvent
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Pane
+import javafx.scene.layout.VBox
+import javafx.scene.media.EqualizerBand
 import javafx.scene.text.Text
+import java.lang.String.format
+import java.util.*
+import javafx.scene.control.Label
+import java.net.URL
 
-class Controller {
+class Controller : Initializable {
 
     @FXML
     lateinit var tSl: Slider
@@ -43,13 +56,33 @@ class Controller {
     lateinit var yearChoice: ChoiceBox<String>
     @FXML
     lateinit var tm: TableView<Song>
+    @FXML
+    lateinit var slidersPaneBox: HBox
+
+    val sliders = mutableListOf<Slider>()
+
+    override fun initialize(location: URL?, resources: ResourceBundle?) {
+        for (c in slidersPaneBox.children) {
+            val vb = (c as VBox)
+            val t = vb.children[0] as Text
+            val s = vb.children[1] as Slider
+            s.min = EqualizerBand.MIN_GAIN
+            s.max = EqualizerBand.MAX_GAIN
+
+            sliders.add(s)
+            s.valueProperty().addListener { _, _, newValue ->
+                t.text = format("%.2f", newValue)
+            }
+        }
+
+    }
 
 
     @FXML
     private fun dragTime(e: MouseEvent) {
         val (m, s) = alltime.text.split(':').map { it.toInt() }
         val at = (m * 60 + s)
-        val n = ( at* tSl.value).toLong()
+        val n = (at * tSl.value).toLong()
 
         val tr = at - n
         trit.text = "-" + (tr / 60) + ":" + (tr % 60)
@@ -62,19 +95,17 @@ class Controller {
         val at = (m * 60 + s)
 
         val tr = at - n
-        tSl.value = n.toDouble()/at
+        tSl.value = n.toDouble() / at
 
         trit.text = "-" + (tr / 60) + ":" + (tr % 60)
         tleftt.text = "" + (n / 60) + ":" + (n % 60)
     }
 
 
-
     @FXML
     fun setTime(e: MouseEvent) {
 
     }
-
 
 
 }
