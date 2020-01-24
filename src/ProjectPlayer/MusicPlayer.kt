@@ -1,16 +1,18 @@
 package ProjectPlayer
 
+import javafx.collections.ObservableList
+import javafx.scene.chart.XYChart
 import javafx.scene.control.Slider
+import javafx.scene.media.AudioSpectrumListener
 import javafx.scene.media.EqualizerBand
 import javafx.scene.media.Media
 import javafx.scene.media.MediaPlayer
 import javafx.util.Duration
-import java.lang.Exception
 import java.nio.file.Paths
 import kotlin.math.abs
 
 
-class MusicPlayer(val sliders: Collection<Slider>) {
+class MusicPlayer(val sliders: Collection<Slider>,val chart: ObservableList<XYChart.Data<String, Float>>) {
 
     private var onSongEnd: (() -> Unit)? = null
     fun setOnSongEnd(listener: () -> Unit) {
@@ -90,9 +92,32 @@ class MusicPlayer(val sliders: Collection<Slider>) {
         newPos = null
         isSongPlaying = true
 
-        try{p.dispose()}catch (e:Exception){}
+        try {
+            p.dispose()
+        } catch (e: Exception) {
+        }
         p = MediaPlayer(Media(Paths.get(pathToSong).toUri().toString()));
         p.volume = volume
+
+
+        p.audioSpectrumNumBands = chart.size
+        p.audioSpectrumInterval = 1.0 / 30.0
+
+        p.audioSpectrumListener = AudioSpectrumListener { timestamp, duration, magnitudes, phases ->
+           // var avarage = 0.0
+
+            chart.forEachIndexed { i, d ->
+                //println(60 + magnitudes[i])
+
+
+                d.yValue = d.yValue + (60 + magnitudes[i] - d.yValue) * 0.5f
+
+                //if (i < 3) avarage += ((60 + magnitudes[i]) / 60).toDouble()
+            }
+        }
+
+
+
 
         sliders.forEachIndexed { i, s ->
             p.audioEqualizer.bands[i].gain = s.value
@@ -136,6 +161,5 @@ class MusicPlayer(val sliders: Collection<Slider>) {
         if (!isSongPlaying) return
         p.volume = v
     }
-
 
 }

@@ -37,8 +37,6 @@ class DB {
 
     fun getSongs(): List<Song> {
         connect()
-
-        //stat.executeUpdate("DROP TABLE IF EXISTS MusicLib")
         stat.executeUpdate(
             """ 
             CREATE TABLE IF NOT EXISTS MusicLib (
@@ -61,7 +59,6 @@ class DB {
                 if (t as Int? == 0) return ""
             } catch (e: Exception) {
             }
-
             return t?.toString() ?: ""
         }
 
@@ -93,8 +90,6 @@ class DB {
         val ins = con.prepareStatement("DELETE FROM MusicLib WHERE id = ${s.id};")
         ins.executeUpdate()
         close()
-
-        //onSongsChanged?.invoke()
     }
 
     fun addSongs(ss: Collection<Song>) {

@@ -1,80 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.collections.*?>
-<?import javafx.scene.control.cell.*?>
-<?import java.lang.*?>
-<?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.collections.FXCollections?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="902.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Controller">
     <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="Файл">
-            <items>
-              <MenuItem fx:id="setBt" mnemonicParsing="false" text="Настройки" />
-                  <MenuItem fx:id="exitBt" mnemonicParsing="false" text="Выход" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Помощь">
-            <items>
-              <MenuItem fx:id="aboutBt" mnemonicParsing="false" text="О" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" style="color: #fff;" text="Файл">
+                    <items>
+                        <MenuItem fx:id="setBt" mnemonicParsing="false" text="Настройки" />
+                        <MenuItem fx:id="exitBt" mnemonicParsing="false" text="Выход" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Помощь">
+                    <items>
+                        <MenuItem fx:id="aboutBt" mnemonicParsing="false" text="О" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
         <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="629.0" prefWidth="1027.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Воспроизведение">
                     <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                             <children>
-                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                <ToolBar prefHeight="81.0" prefWidth="827.0" style="-fx-background-color: #333;">
                                     <items>
                                         <Separator orientation="VERTICAL" prefHeight="4.0" prefWidth="11.0" />
-                                        <Text layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Громкость" wrappingWidth="65.6796875" />
-                                        <Slider fx:id="volumesli" max="1.0" value="1.0" />
+                                        <Text fill="WHITE" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Громкость" wrappingWidth="65.6796875" />
+                                        <Slider fx:id="volumesli" max="1.0" prefHeight="14.0" prefWidth="191.0" value="1.0" />
                                         <Separator layoutX="142.0" layoutY="10.0" orientation="VERTICAL" prefHeight="4.0" prefWidth="11.0" />
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сейчас играет:" />
-                                        <Text fx:id="nameCurSong" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ничего" />
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Сейчас играет:" wrappingWidth="90.91796875" />
+                                        <Text fx:id="nameCurSong" fill="WHITE" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ничего" />
                                     </items>
                                 </ToolBar>
-                                <HBox alignment="CENTER" prefHeight="45.0" prefWidth="1027.0" style="-fx-background-color: white;">
+                                <HBox alignment="CENTER" prefHeight="104.0" prefWidth="827.0" style="-fx-background-color: #385571;">
                                     <children>
-                                        <Text fx:id="tleftt" strokeType="OUTSIDE" strokeWidth="0.0" text="10:10" wrappingWidth="51.5390625" />
+                                        <ToolBar prefHeight="54.0" prefWidth="353.0" style="-fx-background-color: #385571;">
+                                            <items>
+                                                <Button fx:id="prevBt" mnemonicParsing="false" style="-fx-font-size: 20; -fx-font-weight: bold;" text="|&lt;" />
+                                    <Separator layoutX="259.0" layoutY="10.0" orientation="VERTICAL" prefHeight="44.0" prefWidth="17.0" />
+                                                <Button fx:id="stopBt" layoutX="42.0" layoutY="13.0" mnemonicParsing="false" style="-fx-font-size: 20; -fx-font-weight: bold;" text="S" />
+                                    <Separator layoutX="217.0" layoutY="10.0" orientation="VERTICAL" prefHeight="44.0" prefWidth="17.0" />
+                                                <Button fx:id="playBt" mnemonicParsing="false" prefHeight="44.0" prefWidth="49.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="|&gt;" />
+                                    <Separator layoutX="227.0" layoutY="20.0" orientation="VERTICAL" prefHeight="44.0" prefWidth="17.0" />
+                                                <Button fx:id="pauseBt" mnemonicParsing="false" prefHeight="44.0" prefWidth="50.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="||" />
+                                    <Separator orientation="VERTICAL" prefHeight="44.0" prefWidth="17.0" />
+                                                <Button fx:id="nextBt" mnemonicParsing="false" style="-fx-font-size: 20; -fx-font-weight: bold;" text="&gt;|" />
+                                            </items>
+                                        </ToolBar>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="827.0" style="-fx-background-color: #333;">
+                                    <children>
+                                        <Text fx:id="tleftt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="10:10" wrappingWidth="51.5390625" />
                                         <Slider fx:id="tSl" max="1.0" onMouseDragged="#dragTime" onMousePressed="#dragTime" onMouseReleased="#setTime" prefWidth="626.0">
                                             <opaqueInsets>
                                                 <Insets />
                                             </opaqueInsets>
                                         </Slider>
-                                        <Text fx:id="trit" layoutX="136.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-10:10" wrappingWidth="57.5390625">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin></Text>
-                              <Text fx:id="alltime" layoutX="883.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15:50" wrappingWidth="57.5390625" />
+                                        <Text fx:id="trit" fill="WHITE" layoutX="136.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-10:10" wrappingWidth="57.5390625">
+                                            <HBox.margin>
+                                                <Insets left="5.0" />
+                                            </HBox.margin>
+                                        </Text>
+                                        <Text fx:id="alltime" fill="WHITE" layoutX="883.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15:50" wrappingWidth="57.5390625" />
                                     </children>
                                     <opaqueInsets>
                                         <Insets />
                                     </opaqueInsets>
-                                </HBox>
-                                <Separator prefWidth="200.0" />
-                                <HBox alignment="CENTER" prefHeight="47.0" prefWidth="1027.0" style="-fx-background-color: #9FEBFB;">
-                                    <children>
-                                        <ToolBar prefHeight="40.0" prefWidth="181.0" style="-fx-background-color: #9FEBFB;">
-                                            <items>
-                                                <Button fx:id="prevBt" mnemonicParsing="false" text="|&lt;" />
-                                    <Button fx:id="stopBt" layoutX="42.0" layoutY="13.0" mnemonicParsing="false" text="Stop" />
-                                                <Button fx:id="pauseBt" mnemonicParsing="false" text="||" />
-                                                <Button fx:id="playBt" mnemonicParsing="false" text="|&gt;" />
-                                                <Button fx:id="nextBt" mnemonicParsing="false" text="&gt;|" />
-                                            </items>
-                                        </ToolBar>
-                                    </children>
                                 </HBox>
                             </children>
                         </VBox>
@@ -84,17 +86,17 @@
                     <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                             <children>
-                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #333;">
                                     <items>
-                                        <Button fx:id="addSongBt" mnemonicParsing="false" text="Добавить" />
-                                        <Button fx:id="delSonfBt" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Удалить" />
+                                        <Button fx:id="addSongBt" mnemonicParsing="false" style="-fx-background-color: #803956;" text="Добавить" textFill="WHITE" />
+                                        <Button fx:id="delSonfBt" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: #803956;" text="Удалить" textFill="WHITE" />
                                         <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="20.0">
                                             <opaqueInsets>
                                                 <Insets />
                                             </opaqueInsets>
                                         </Separator>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сейчас играет:" />
-                                        <Text fx:id="nameCurSong2" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ничего" />
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Сейчас играет:" />
+                                        <Text fx:id="nameCurSong2" fill="WHITE" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ничего" />
 
                                         <!--<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Жанр:" />
                                         <ChoiceBox fx:id="genreChoice" prefHeight="25.0" prefWidth="100.0" />
@@ -154,12 +156,12 @@
                 </Tab>
                 <Tab text="Исполнитель">
                     <content>
-                        <WebView prefHeight="-1.0" prefWidth="-1.0" />
+                        <WebView fx:id="artistWeb" prefHeight="-1.0" prefWidth="-1.0" />
                     </content>
                 </Tab>
                 <Tab text="Текст песни">
                     <content>
-                        <WebView prefHeight="200.0" prefWidth="200.0" />
+                        <WebView fx:id="textWeb" prefHeight="200.0" prefWidth="200.0" />
                     </content>
                 </Tab>
                 <Tab text="Эквалайзер">
@@ -170,74 +172,74 @@
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="32Hz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="32Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="64Hz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="64Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="80.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="125Hz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="125Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="150.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="250Hz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="250Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="220.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="500Hz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="500Hz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="290.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1kHz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1kHz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2kHz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2kHz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="430.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4kHz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4kHz" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="500.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                                 <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8kHz" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8kHz" />
                                             </children>
                                         </VBox>
-                              <VBox alignment="CENTER" layoutX="769.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
-                                    <Text layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16kHz" />
-                                 </children>
-                              </VBox>
+                                        <VBox alignment="CENTER" layoutX="769.0" layoutY="10.0" prefHeight="171.0" prefWidth="70.0">
+                                            <children>
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Slider min="-100.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="28.0" />
+                                                <Text fill="WHITE" layoutX="42.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16kHz" />
+                                            </children>
+                                        </VBox>
                                     </children>
                                     <opaqueInsets>
                                         <Insets top="15.0" />
@@ -247,7 +249,21 @@
                         </VBox>
                     </content>
                 </Tab>
-                <Tab text="Визуализация" />
+                <Tab text="Визуализация">
+                    <content>
+                        <VBox>
+                     <children>
+                        <BarChart fx:id="chart1" alternativeRowFillVisible="false" animated="false" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis minorTickVisible="false" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" />
+                          </yAxis>
+                        </BarChart>
+                     </children></VBox>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </children>

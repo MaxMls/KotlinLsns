@@ -3,6 +3,8 @@ package ProjectPlayer
 import javafx.beans.value.ChangeListener
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.scene.chart.BarChart
+import javafx.scene.chart.Chart
 import javafx.scene.control.*
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
@@ -10,6 +12,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
 import javafx.scene.media.EqualizerBand
 import javafx.scene.text.Text
+import javafx.scene.web.WebView
 import java.lang.String.format
 import java.util.*
 import java.net.URL
@@ -62,6 +65,12 @@ class Controller : Initializable {
     lateinit var tm: TableView<Song>
     @FXML
     lateinit var slidersPaneBox: HBox
+    @FXML
+    lateinit var artistWeb: WebView
+    @FXML
+    lateinit var textWeb: WebView
+    @FXML
+    lateinit var chart1: BarChart<String, Float>
 
     val sliders = mutableListOf<Slider>()
 
