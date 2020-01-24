@@ -40,26 +40,8 @@ class MusicPlayer(val sliders: Collection<Slider>) {
 
     private lateinit var p: MediaPlayer
 
-    fun song(pathToSong: String) {
-        playerRefresh = false
-        totalDuration = Duration.UNKNOWN;
-        changePos = false
-        isFirstDurationGet = false
-        newPos = null
-
-        p = MediaPlayer(Media(Paths.get(pathToSong).toUri().toString()));
-        p.volume = volume
-
-        sliders.forEachIndexed { i, s ->
-            p.audioEqualizer.bands[i].gain = s.value
-            s.valueProperty().addListener { _, _, newValue ->
-                p.audioEqualizer.bands[i].gain = newValue as Double
-            }
-        }
-
-
-        p.audioEqualizer.bands.add(EqualizerBand())
-        val t = Thread {
+    init {
+        Thread {
             while (true) {
                 Thread.sleep(200)
                 try {
@@ -95,8 +77,29 @@ class MusicPlayer(val sliders: Collection<Slider>) {
                     break
                 }
             }
+        }.start()
+    }
+
+    fun song(pathToSong: String) {
+        playerRefresh = false
+        totalDuration = Duration.UNKNOWN;
+        changePos = false
+        isFirstDurationGet = false
+        newPos = null
+
+        try{p.dispose()}catch (e:Exception){}
+        p = MediaPlayer(Media(Paths.get(pathToSong).toUri().toString()));
+        p.volume = volume
+
+        sliders.forEachIndexed { i, s ->
+            p.audioEqualizer.bands[i].gain = s.value
+            s.valueProperty().addListener { _, _, newValue ->
+                p.audioEqualizer.bands[i].gain = newValue as Double
+            }
         }
-        t.start()
+
+
+        p.audioEqualizer.bands.add(EqualizerBand())
     }
 
     fun pause() {

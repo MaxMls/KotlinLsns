@@ -3,10 +3,7 @@ package ProjectPlayer
 import javafx.beans.value.ChangeListener
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.Button
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.Slider
-import javafx.scene.control.TableView
+import javafx.scene.control.*
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
@@ -15,7 +12,6 @@ import javafx.scene.media.EqualizerBand
 import javafx.scene.text.Text
 import java.lang.String.format
 import java.util.*
-import javafx.scene.control.Label
 import java.net.URL
 
 class Controller : Initializable {
@@ -44,6 +40,12 @@ class Controller : Initializable {
     lateinit var addSongBt: Button
     @FXML
     lateinit var delSonfBt: Button
+    @FXML
+    lateinit var setBt: MenuItem
+    @FXML
+    lateinit var aboutBt: MenuItem
+    @FXML
+    lateinit var exitBt: MenuItem
     @FXML
     lateinit var stopBt: Button
     @FXML

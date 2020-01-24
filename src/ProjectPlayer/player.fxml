@@ -13,6 +13,21 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjectPlayer.Controller">
     <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem fx:id="setBt" mnemonicParsing="false" text="Настройки" />
+                  <MenuItem fx:id="exitBt" mnemonicParsing="false" text="Выход" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Помощь">
+            <items>
+              <MenuItem fx:id="aboutBt" mnemonicParsing="false" text="О" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
         <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="629.0" prefWidth="1027.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Воспроизведение">

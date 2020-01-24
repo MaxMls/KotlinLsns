@@ -7,7 +7,8 @@ class Song(
     val genre: String,
     val artist: String,
     val album: String,
-    val releaseYear: String
+    val releaseYear: String,
+    val file: String
 ) {
 
 }
