@@ -3,3 +3,4 @@ out
 lib
 target
 .idea/workspace.xml
+*.db

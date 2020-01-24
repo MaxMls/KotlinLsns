@@ -1,10 +1,8 @@
 package ProjectPlayer
 
 import javafx.fxml.FXML
-import javafx.scene.control.Button
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.Slider
-import javafx.scene.control.TableView
+import javafx.scene.control.*
+import javafx.scene.input.MouseEvent
 import javafx.scene.text.Text
 
 class Controller {
@@ -20,6 +18,8 @@ class Controller {
     @FXML
     lateinit var nameCurSong: Text
     @FXML
+    lateinit var alltime: Text
+    @FXML
     lateinit var pauseBt: Button
     @FXML
     lateinit var prevBt: Button
@@ -32,6 +32,8 @@ class Controller {
     @FXML
     lateinit var delSonfBt: Button
     @FXML
+    lateinit var stopBt: Button
+    @FXML
     lateinit var janrChoice: ChoiceBox<String>
     @FXML
     lateinit var artistChoice: ChoiceBox<String>
@@ -41,5 +43,38 @@ class Controller {
     lateinit var yearChoice: ChoiceBox<String>
     @FXML
     lateinit var tm: TableView<Song>
+
+
+    @FXML
+    private fun dragTime(e: MouseEvent) {
+        val (m, s) = alltime.text.split(':').map { it.toInt() }
+        val at = (m * 60 + s)
+        val n = ( at* tSl.value).toLong()
+
+        val tr = at - n
+        trit.text = "-" + (tr / 60) + ":" + (tr % 60)
+        tleftt.text = "" + (n / 60) + ":" + (n % 60)
+    }
+
+    fun dragTime(n: Long) {
+        val (m, s) = alltime.text.split(':').map { it.toInt() }
+
+        val at = (m * 60 + s)
+
+        val tr = at - n
+        tSl.value = n.toDouble()/at
+
+        trit.text = "-" + (tr / 60) + ":" + (tr % 60)
+        tleftt.text = "" + (n / 60) + ":" + (n % 60)
+    }
+
+
+
+    @FXML
+    fun setTime(e: MouseEvent) {
+
+    }
+
+
 
 }

@@ -38,6 +38,7 @@ class MyScreenShot : Application() {
 
     override fun start(primaryStage: Stage) {
 
+
         val loader = FXMLLoader(javaClass.getResource("Main.fxml"))
         val root = loader.load<Parent>()
         c = loader.getController<Controller>()
@@ -71,6 +72,9 @@ class MyScreenShot : Application() {
             cropMode = false
             c.drawMode = true
             areaSelection.stopSelection()
+        }
+        c.exitBt.setOnAction {
+            primaryStage.close()
         }
 
         c.saveBt.setOnAction {
