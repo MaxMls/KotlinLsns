@@ -3,22 +3,45 @@
   <component name="ChangeListManager">
     <list default="true" id="99969646-f569-4f0f-bfde-ba8576ae7265" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KotlinLsns.iml" beforeDir="false" afterPath="$PROJECT_DIR$/KotlinLsns.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUISamples/GetCoin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUISamples/GetCoin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUISamples/Kripta.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUISamples/Kripta.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectPlayer/AMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProjectPlayer/AMain.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectPlayer/Controller.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProjectPlayer/Controller.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectPlayer/DB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProjectPlayer/DB.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectPlayer/MusicPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProjectPlayer/MusicPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectPlayer/player.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProjectPlayer/player.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Task4ScreenShot/MyScreenShot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Task4ScreenShot/MyScreenShot.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="data.db" type="feb32156:DbDataSourceImpl" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -44,6 +67,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="true" />
     <property name="Repository.Attach.JavaDocs" value="true" />
@@ -52,66 +76,92 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Desktop/code/FxExperiencePlayer" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="xpath.settings" />
+    <property name="settings.editor.selected.configurable" value="SQL Dialects" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="Task4ScreenShot" />
+      <recent name="3Crypto" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\Max\IdeaProjects\KotlinLsns\src\3Crypto" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ProjectPlayer" />
+      <recent name="Task3Crypto" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Users\Max1\Documents\IdeaProjects\KotlinLsns\src\ProjectPlayer" />
+      <recent name="D:\Users\Max\IdeaProjects\KotlinLsns\src\Task4ScreenShot" />
       <recent name="D:\Users\Max\IdeaProjects\KotlinLsns" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.GUISamples.Kripta">
-    <configuration name="CoinTest" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Kotlin.ProjectPlayer.AMain">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Task4ScreenShot.Main" />
       <module name="KotlinLsns" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="CoinTest" />
-      <option name="WORKING_DIRECTORY" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Task4ScreenShot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUISamples.GUI9" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+    <configuration name="GUISamples.Popupme" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
       <module name="KotlinLsns" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="GUISamples.GUI9" />
-      <option name="WORKING_DIRECTORY" />
+      <option name="MAIN_CLASS_NAME" value="GUISamples.Popupme" />
+      <option name="WORKING_DIRECTORY" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUISamples.Kripta" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+    <configuration name="ProjectPlayer.AMain" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
       <module name="KotlinLsns" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="GUISamples.Kripta" />
-      <option name="WORKING_DIRECTORY" />
+      <option name="MAIN_CLASS_NAME" value="ProjectPlayer.AMain" />
+      <option name="WORKING_DIRECTORY" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyCoinTest" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+    <configuration name="Task3Crypto.Kripta" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
       <module name="KotlinLsns" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="MyCoinTest" />
-      <option name="WORKING_DIRECTORY" />
+      <option name="MAIN_CLASS_NAME" value="Task3Crypto.Kripta" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Task4ScreenShot.MyScreenShot" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+      <module name="KotlinLsns" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Task4ScreenShot.MyScreenShot" />
+      <option name="WORKING_DIRECTORY" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -130,17 +180,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Kotlin.CoinTest" />
-      <item itemvalue="Kotlin.GUISamples.GUI9" />
-      <item itemvalue="Kotlin.GUISamples.Kripta" />
-      <item itemvalue="Kotlin.MyCoinTest" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Kotlin.Task4ScreenShot.MyScreenShot" />
+      <item itemvalue="Kotlin.GUISamples.Popupme" />
+      <item itemvalue="Kotlin.Task3Crypto.Kripta" />
+      <item itemvalue="Kotlin.ProjectPlayer.AMain" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.GUISamples.Kripta" />
-        <item itemvalue="Kotlin.MyCoinTest" />
-        <item itemvalue="Kotlin.CoinTest" />
-        <item itemvalue="Kotlin.GUISamples.GUI9" />
+        <item itemvalue="Kotlin.ProjectPlayer.AMain" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Kotlin.Task4ScreenShot.MyScreenShot" />
+        <item itemvalue="Kotlin.Task3Crypto.Kripta" />
+        <item itemvalue="Kotlin.GUISamples.Popupme" />
       </list>
     </recent_temporary>
   </component>
@@ -168,7 +220,15 @@
       <updated>1568516608135</updated>
       <workItem from="1579598080143" duration="1428000" />
       <workItem from="1579599525324" duration="4655000" />
-      <workItem from="1579604208907" duration="26049000" />
+      <workItem from="1579604208907" duration="62869000" />
+      <workItem from="1579766476141" duration="5112000" />
+      <workItem from="1579794629890" duration="497000" />
+      <workItem from="1579795158299" duration="992000" />
+      <workItem from="1579796542241" duration="13675000" />
+      <workItem from="1579835355210" duration="8660000" />
+      <workItem from="1579847332906" duration="29069000" />
+      <workItem from="1579893159403" duration="9253000" />
+      <workItem from="1579918146777" duration="8437000" />
     </task>
     <servers />
   </component>
@@ -189,81 +249,137 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="521" y="199" key="#Language_Injections" timestamp="1579873976755">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="521" y="199" key="#Language_Injections/0.0.1858.1080@0.0.1858.1080" timestamp="1579873976755" />
     <state x="648" y="211" key="#MyCoinTest" timestamp="1579599942428">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="648" y="211" key="#MyCoinTest/0.0.1858.1080@0.0.1858.1080" timestamp="1579599942428" />
-    <state x="766" y="200" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579607218253">
+    <state x="521" y="199" key="#SQL_Dialects" timestamp="1579874276251">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state x="766" y="200" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579607218253" />
-    <state x="659" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579607361520">
+    <state x="521" y="199" key="#SQL_Dialects/0.0.1858.1080@0.0.1858.1080" timestamp="1579874276251" />
+    <state x="521" y="199" key="#SQL_Resolution_Scopes" timestamp="1579874181644">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state x="659" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579607361520" />
-    <state x="512" y="135" key="CommitChangelistDialog2" timestamp="1579609123867">
+    <state x="521" y="199" key="#SQL_Resolution_Scopes/0.0.1858.1080@0.0.1858.1080" timestamp="1579874181644" />
+    <state x="766" y="200" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579874061195">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state x="512" y="135" key="CommitChangelistDialog2/0.0.1858.1080@0.0.1858.1080" timestamp="1579609123867" />
-    <state width="456" height="466" key="DebuggerActiveHint" timestamp="1579628620965">
+    <state x="766" y="200" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579874061195" />
+    <state x="734" y="256" key="#com.intellij.ide.util.MemberChooser" timestamp="1579872665990">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="456" height="466" key="DebuggerActiveHint/0.0.1858.1080@0.0.1858.1080" timestamp="1579628620965" />
-    <state x="708" y="295" key="FileChooserDialogImpl" timestamp="1579599398794">
+    <state x="734" y="256" key="#com.intellij.ide.util.MemberChooser/0.0.1858.1080@0.0.1858.1080" timestamp="1579872665990" />
+    <state x="659" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579710768037">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state x="708" y="295" key="FileChooserDialogImpl/0.0.1858.1080@0.0.1858.1080" timestamp="1579599398794" />
-    <state width="1384" height="202" key="GridCell.Tab.0.bottom" timestamp="1579630509176">
+    <state x="659" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579710768037" />
+    <state x="512" y="135" key="CommitChangelistDialog2" timestamp="1579887110798">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1384" height="202" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1579630509176" />
-    <state width="1384" height="202" key="GridCell.Tab.0.center" timestamp="1579630509175">
+    <state x="512" y="135" key="CommitChangelistDialog2/0.0.1858.1080@0.0.1858.1080" timestamp="1579887110798" />
+    <state width="480" height="466" key="DebuggerActiveHint" timestamp="1579925343438">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1384" height="202" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1579630509175" />
-    <state width="1384" height="202" key="GridCell.Tab.0.left" timestamp="1579630509175">
+    <state width="480" height="466" key="DebuggerActiveHint/0.0.1858.1080@0.0.1858.1080" timestamp="1579925343438" />
+    <state x="661" y="280" key="FileChooserDialogImpl" timestamp="1579922396214">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1384" height="202" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1579630509175" />
-    <state width="1384" height="202" key="GridCell.Tab.0.right" timestamp="1579630509175">
+    <state x="661" y="280" key="FileChooserDialogImpl/0.0.1858.1080@0.0.1858.1080" timestamp="1579922396214" />
+    <state width="907" height="372" key="GridCell.Tab.-1.bottom" timestamp="1579726267929">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1384" height="202" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1579630509175" />
-    <state width="907" height="364" key="GridCell.Tab.1.bottom" timestamp="1579628779283">
+    <state width="907" height="372" key="GridCell.Tab.-1.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1579726267929" />
+    <state width="907" height="372" key="GridCell.Tab.-1.center" timestamp="1579726267929">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="907" height="364" key="GridCell.Tab.1.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1579628779283" />
-    <state width="907" height="364" key="GridCell.Tab.1.center" timestamp="1579628779283">
+    <state width="907" height="372" key="GridCell.Tab.-1.center/0.0.1858.1080@0.0.1858.1080" timestamp="1579726267929" />
+    <state width="907" height="372" key="GridCell.Tab.-1.left" timestamp="1579726267928">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="907" height="364" key="GridCell.Tab.1.center/0.0.1858.1080@0.0.1858.1080" timestamp="1579628779283" />
-    <state width="907" height="364" key="GridCell.Tab.1.left" timestamp="1579628779283">
+    <state width="907" height="372" key="GridCell.Tab.-1.left/0.0.1858.1080@0.0.1858.1080" timestamp="1579726267928" />
+    <state width="907" height="372" key="GridCell.Tab.-1.right" timestamp="1579726267929">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="907" height="364" key="GridCell.Tab.1.left/0.0.1858.1080@0.0.1858.1080" timestamp="1579628779283" />
-    <state width="907" height="364" key="GridCell.Tab.1.right" timestamp="1579628779283">
+    <state width="907" height="372" key="GridCell.Tab.-1.right/0.0.1858.1080@0.0.1858.1080" timestamp="1579726267929" />
+    <state width="1815" height="364" key="GridCell.Tab.0.bottom" timestamp="1579926744742">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="907" height="364" key="GridCell.Tab.1.right/0.0.1858.1080@0.0.1858.1080" timestamp="1579628779283" />
+    <state width="1815" height="364" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.0.center" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.0.left" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.0.right" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.1.bottom" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.1.center" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.center/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.1.left" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.left/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="1815" height="364" key="GridCell.Tab.1.right" timestamp="1579926744742">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.right/0.0.1858.1080@0.0.1858.1080" timestamp="1579926744742" />
+    <state width="196" height="457" key="HiddenNamespacesPopup" timestamp="1579882068964">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="196" height="457" key="HiddenNamespacesPopup/0.0.1858.1080@0.0.1858.1080" timestamp="1579882068964" />
     <state x="459" y="195" key="Maven.ArtifactSearchDialog" timestamp="1579600311461">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="459" y="195" key="Maven.ArtifactSearchDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579600311461" />
-    <state x="409" y="115" key="SettingsEditor" timestamp="1579607185760">
+    <state x="409" y="115" key="SettingsEditor" timestamp="1579874247119">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state x="409" y="115" key="SettingsEditor/0.0.1858.1080@0.0.1858.1080" timestamp="1579607185760" />
-    <state x="630" y="364" key="com.intellij.ide.util.TipDialog" timestamp="1579598121752">
+    <state x="409" y="115" key="SettingsEditor/0.0.1858.1080@0.0.1858.1080" timestamp="1579874247119" />
+    <state width="200" height="441" key="SqlResolveConfigurable" timestamp="1579874172288">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state x="630" y="364" key="com.intellij.ide.util.TipDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579598121752" />
+    <state width="200" height="441" key="SqlResolveConfigurable/0.0.1858.1080@0.0.1858.1080" timestamp="1579874172288" />
+    <state x="645" y="182" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1579866244566">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="645" y="182" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579866244566" />
+    <state x="630" y="364" key="com.intellij.ide.util.TipDialog" timestamp="1579847426927">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="630" y="364" key="com.intellij.ide.util.TipDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579847426927" />
     <state x="633" y="434" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1579598413531">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="633" y="434" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1858.1080@0.0.1858.1080" timestamp="1579598413531" />
+    <state x="659" y="306" key="extract.method.dialog" timestamp="1579719129614">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="659" y="306" key="extract.method.dialog/0.0.1858.1080@0.0.1858.1080" timestamp="1579719129614" />
     <state x="311" y="161" key="new project wizard" timestamp="1579598488114">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="311" y="161" key="new project wizard/0.0.1858.1080@0.0.1858.1080" timestamp="1579598488114" />
+    <state x="585" y="250" key="run.anything.popup" timestamp="1579897340244">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="585" y="250" key="run.anything.popup/0.0.1858.1080@0.0.1858.1080" timestamp="1579897340244" />
+    <state x="592" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1579866138541">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="592" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1858.1080@0.0.1858.1080" timestamp="1579866138541" />
   </component>
 </project>

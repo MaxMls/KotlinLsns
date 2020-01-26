@@ -156,7 +156,7 @@ class MyScreenShot : Application() {
         val fileChooser = FileChooser()
         fileChooser.title = "Save Image"
 
-        fileChooser.initialDirectory = File(dir.parent)
+        fileChooser.initialDirectory = if (dir.isFile) File(dir.parent) else dir
         fileChooser.initialFileName = dir.nameWithoutExtension
 
         fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("portable network graphics", "*.png"))

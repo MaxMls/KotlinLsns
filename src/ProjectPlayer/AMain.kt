@@ -10,11 +10,15 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.chart.XYChart
 import javafx.scene.chart.XYChart.Series
 import javafx.scene.control.TableView
+import javafx.scene.image.Image
 import javafx.scene.media.Media
 import javafx.scene.media.MediaPlayer
 import javafx.stage.FileChooser
 import javafx.stage.Modality
 import javafx.stage.Stage
+import org.apache.http.NameValuePair
+import org.apache.http.message.BasicNameValuePair
+import org.json.JSONObject
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -23,12 +27,89 @@ import java.util.prefs.Preferences
 import kotlin.system.exitProcess
 
 
+/*Application name	musicplayer
+API key	97ba4be3429469c825510ff016095ef5
+Shared secret	a144f21436665400f2bc2415892584ae
+Registered to	lugyfmtdrhefw*/
+
+// searsh track http://ws.audioscrobbler.com/2.0/?method=track.search&track=Doja%20Cat%20Boss%20Bitch&api_key=97ba4be3429469c825510ff016095ef5&format=json
+// get album info  http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=97ba4be3429469c825510ff016095ef5&artist=cher&track=believe&format=json
+// get image http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=97ba4be3429469c825510ff016095ef5&artist=Cher&album=Believe&format=json
+
+
 class AMain : Application() {
 
     lateinit var c: Controller
     lateinit var mp: MusicPlayer
     val prefs = Preferences.userRoot().node("/musicPlayerTask");
     lateinit var primaryStage: Stage
+    val apiKey = BasicNameValuePair("api_key", "97ba4be3429469c825510ff016095ef5")
+    val apiUri = "http://ws.audioscrobbler.com/2.0/"
+    var imgLoadThread: Thread? = null
+
+    fun getAlbumPic(name: String) {
+        imgLoadThread?.stop()
+
+        imgLoadThread = Thread {
+            try {
+                c.img.image = Image(javaClass.getResource("default.png").toString())
+
+
+                val res1 = DB.makeAPICall(
+                    apiUri, listOf<NameValuePair>(
+                        apiKey,
+                        BasicNameValuePair("method", "track.search"),
+                        BasicNameValuePair("track", name),
+                        BasicNameValuePair("format", "json")
+                    )
+                )
+                val r1json = JSONObject(res1)
+                println(res1)
+                val fr =
+                    r1json.getJSONObject("results").getJSONObject("trackmatches").getJSONArray("track").getJSONObject(0)
+
+                val res2 = DB.makeAPICall(
+                    apiUri, listOf<NameValuePair>(
+                        apiKey,
+                        BasicNameValuePair("method", "track.getInfo"),
+                        BasicNameValuePair("artist", fr.getString("artist")),
+                        BasicNameValuePair("track", fr.getString("name")),
+                        BasicNameValuePair("format", "json")
+                    )
+                )
+                println(res2)
+
+                val r2json = JSONObject(res2)
+                val ims = r2json.getJSONObject("track").getJSONObject("album").getJSONArray("image")
+
+                val img = ims.getJSONObject(ims.length() - 1).getString("#text")
+                println(img)
+                c.img.image = Image(img)
+            } catch (e: Exception) {
+
+            }
+
+        }
+        imgLoadThread?.start()
+    }
+
+
+    fun onOtherSongSelect(ns: Song) {
+        try {
+            println("chaa")
+            getAlbumPic(ns.title + " " + ns.artist + " " + ns.album)
+
+            if (ns.title == null || ns.title == "") {
+                c.textWeb.engine.loadContent("");
+                return
+            } else c.textWeb.engine.load("https://google.com/search?q=текст+песни+" + ns.title)
+            if (ns.artist == null || ns.artist == "")
+                c.artistWeb.engine.loadContent("");
+            else
+                c.artistWeb.engine.load("https://google.com/search?q=site:wikipedia.com+" + ns.artist)
+        } catch (e: Exception) {
+        }
+    }
 
     override fun start(primaryStage: Stage) {
         this.primaryStage = primaryStage
@@ -38,11 +119,7 @@ class AMain : Application() {
         primaryStage.show()
 
         libInit()
-
-
-        //val yAxis = NumberAxis(0.0, 60.0, 0.0)
-        var l = mutableListOf<String>()
-
+        val l = mutableListOf<String>()
         val series = Series<String, Float>()
         val b = Series<String, Float>()
         for (i in 0..100) {
@@ -55,23 +132,10 @@ class AMain : Application() {
         val xAxis = CategoryAxis()
         xAxis.categories = FXCollections.observableArrayList(l)
 
-        c.tm.selectionModel.selectedItemProperty().addListener { _, _, ns ->
-            if (ns == null || ns.title == null) {
-                c.textWeb.engine.loadContent("");
-                return@addListener
-            }
-            else c.textWeb.engine.load("https://google.com/search?q=текст+песни+" + ns.title)
-            if (ns.artist == null || ns.artist == "")
-                c.artistWeb.engine.loadContent("");
-            else
-                c.artistWeb.engine.load("https://google.com/search?q=site:wikipedia.com+" + ns.artist)
-        }
+        /* c.tm.selectionModel.selectedItemProperty().addListener { _, os, ns ->
 
-
-
-
-
-
+         }
+ */
         c.chart1.data.add(series)
 
         c.chart1.data.add(b)
@@ -95,6 +159,7 @@ class AMain : Application() {
             c.tm.selectionModel.select((c.tm.selectionModel.selectedIndex + c.tm.items.count() + i) % c.tm.items.count())
             mp.song(c.tm.selectionModel.selectedItem.file)
             c.nameCurSong.text = c.tm.selectionModel.selectedItem.title
+            onOtherSongSelect(c.tm.selectionModel.selectedItem)
             mp.play()
         }
         mp.setOnSongEnd { ss(1) }
@@ -139,6 +204,8 @@ class AMain : Application() {
                 mp.song(f.file)
                 c.nameCurSong.text = c.tm.selectionModel.selectedItem.title
                 mp.play()
+
+                onOtherSongSelect(f)
                 oldSel = f
             } else {
                 c.tm.selectionModel.select(oldSel)
@@ -174,7 +241,7 @@ class AMain : Application() {
             val selectedFiles = chooser.showOpenMultipleDialog(primaryStage)
             val l = mutableListOf<Song>()
 
-            var ts = mutableListOf<Thread>()
+            val ts = mutableListOf<Thread>()
             if (selectedFiles == null) return@setOnAction
             for (f in selectedFiles) {
                 val music = Media(f.toURI().toString())
@@ -234,8 +301,6 @@ class AMain : Application() {
                 db.addSongs(l)
             }
             w.start()
-
-
         }
 
 

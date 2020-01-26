@@ -1,6 +1,13 @@
 package ProjectPlayer
 
+import org.apache.http.NameValuePair
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.utils.URIBuilder
+import org.apache.http.impl.client.HttpClients
+import org.apache.http.util.EntityUtils
 import java.io.File
+import java.io.IOException
+import java.net.URISyntaxException
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.sql.Connection
@@ -147,4 +154,29 @@ class DB {
 
         close()
     }
+
+companion object{
+
+    @Throws(URISyntaxException::class, IOException::class)
+    fun makeAPICall(uri: String, parameters: List<NameValuePair>): String {
+        var responseContent = ""
+
+        val query = URIBuilder(uri)
+        query.addParameters(parameters)
+
+        val client = HttpClients.createDefault()
+        val request = HttpGet(query.build())
+        val response = client.execute(request)
+
+        try {
+            println(response.statusLine)
+            val entity = response.entity
+            responseContent = EntityUtils.toString(entity)
+            EntityUtils.consume(entity)
+        } finally {
+        }
+        return responseContent
+    }
+
+}
 }

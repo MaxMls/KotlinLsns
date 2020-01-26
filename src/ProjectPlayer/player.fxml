@@ -5,6 +5,7 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
@@ -32,7 +33,7 @@
                     <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                             <children>
-                                <ToolBar prefHeight="81.0" prefWidth="827.0" style="-fx-background-color: #333;">
+                                <ToolBar prefHeight="75.0" prefWidth="902.0" style="-fx-background-color: #333;">
                                     <items>
                                         <Separator orientation="VERTICAL" prefHeight="4.0" prefWidth="11.0" />
                                         <Text fill="WHITE" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Громкость" wrappingWidth="65.6796875" />
@@ -42,7 +43,7 @@
                                         <Text fx:id="nameCurSong" fill="WHITE" layoutX="142.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ничего" />
                                     </items>
                                 </ToolBar>
-                                <HBox alignment="CENTER" prefHeight="104.0" prefWidth="827.0" style="-fx-background-color: #385571;">
+                                <HBox alignment="CENTER" prefHeight="92.0" prefWidth="902.0" style="-fx-background-color: #385571;">
                                     <children>
                                         <ToolBar prefHeight="54.0" prefWidth="353.0" style="-fx-background-color: #385571;">
                                             <items>
@@ -59,7 +60,22 @@
                                         </ToolBar>
                                     </children>
                                 </HBox>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="827.0" style="-fx-background-color: #333;">
+                        <HBox prefHeight="25.0" prefWidth="902.0">
+                           <children>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="195.0" prefHeight="100.0" prefWidth="827.0" style="-fx-background-color: #333;">
+                           <children>
+                              <ImageView fx:id="img"  fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@./default.png" backgroundLoading="true" />
+                                 </image></ImageView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                                <HBox alignment="CENTER" prefHeight="66.0" prefWidth="902.0" style="-fx-background-color: #333;">
                                     <children>
                                         <Text fx:id="tleftt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="10:10" wrappingWidth="51.5390625" />
                                         <Slider fx:id="tSl" max="1.0" onMouseDragged="#dragTime" onMousePressed="#dragTime" onMouseReleased="#setTime" prefWidth="626.0">

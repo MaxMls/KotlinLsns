@@ -104,15 +104,9 @@ class MusicPlayer(val sliders: Collection<Slider>,val chart: ObservableList<XYCh
         p.audioSpectrumInterval = 1.0 / 30.0
 
         p.audioSpectrumListener = AudioSpectrumListener { timestamp, duration, magnitudes, phases ->
-           // var avarage = 0.0
 
             chart.forEachIndexed { i, d ->
-                //println(60 + magnitudes[i])
-
-
-                d.yValue = d.yValue + (60 + magnitudes[i] - d.yValue) * 0.5f
-
-                //if (i < 3) avarage += ((60 + magnitudes[i]) / 60).toDouble()
+                d.yValue = d.yValue + (60 + magnitudes[i] - d.yValue) * 0.2f
             }
         }
 

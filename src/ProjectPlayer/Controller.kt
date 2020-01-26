@@ -6,6 +6,8 @@ import javafx.fxml.Initializable
 import javafx.scene.chart.BarChart
 import javafx.scene.chart.Chart
 import javafx.scene.control.*
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
@@ -71,6 +73,8 @@ class Controller : Initializable {
     lateinit var textWeb: WebView
     @FXML
     lateinit var chart1: BarChart<String, Float>
+    @FXML
+    lateinit var img: ImageView
 
     val sliders = mutableListOf<Slider>()
 
